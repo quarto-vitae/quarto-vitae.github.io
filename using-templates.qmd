@@ -1,0 +1,321 @@
+---
+title: "Writing a CV"
+subtitle: "Producing and formatting entry listings"
+engine: markdown
+---
+
+A CV built with Quarto vitae is an ordinary `.qmd` document. Its sections are
+plain headings, and each listing — education, employment, awards — is a **table**
+plus a **style** saying how it should look.
+
+Where the table comes from is up to you. Write it by hand, generate it from R,
+Python or Julia, or read it from a file. The result is the same, so you can start
+by typing a table and move to generated data later without rewriting anything.
+
+## The shortest possible listing
+
+```markdown
+---
+format: awesomecv-pdf
+---
+
+# Education
+
+::: {.entries style="detailed"}
+| what             | with                | when      | where         |
+|------------------|---------------------|-----------|---------------|
+| Ph.D. in Physics | University of Paris | 1891–1895 | Paris, France |
+:::
+```
+
+The `.entries` div marks the table as a CV listing, and `style` picks the layout.
+Column names are passed straight to the template, so a table headed with the
+fields your template expects needs no configuration at all.
+
+::: {.callout-tip}
+## Which styles exist?
+
+That depends on your template. Most provide `detailed` (a multi-line entry with
+a bulleted description), `brief` (one line each), and often `skills`. Ask for one
+that does not exist and the filter tells you what is available.
+:::
+
+## Naming your own columns
+
+Real data rarely has columns called `what` and `when`. Rename them with `fields`,
+which reads like `dplyr::rename()` — the new name first:
+
+```markdown
+::: {.entries style="detailed" fields="{what: Degree, with: Institution, when: Years}"}
+| Degree           | Institution         | Years     |
+|------------------|---------------------|-----------|
+| Ph.D. in Physics | University of Paris | 1891–1895 |
+:::
+```
+
+Only the columns you name are renamed; everything else keeps its own heading. So
+`fields` is a short list of corrections, not a full schema.
+
+### The conventional fields
+
+Templates agree on five names, which is what lets one table feed several CV
+designs:
+
+| Field   | Holds                                              |
+|---------|----------------------------------------------------|
+| `what`  | the thing itself — degree, job title, award        |
+| `when`  | the date or range                                  |
+| `with`  | the associated body — university, employer, funder |
+| `where` | the place                                          |
+| `why`   | description or achievements, often several items   |
+
+They are intentionally vague so the same five work for education, employment and
+awards alike. A template may support others; check its documentation.
+
+## Descriptions with several items
+
+`why` usually wants more than one line. There are three ways to write it.
+
+**A grid table**, whose cells can contain a bullet list:
+
+```markdown
+::: {.entries style="detailed"}
++-----------+---------------------+-----------+-----------------------------+
+| what      | with                | when      | why                         |
++===========+=====================+===========+=============================+
+| Professor | University of Paris | 1906–1934 | - First woman to hold the   |
+|           |                     |           |   chair of General Physics  |
+|           |                     |           | - Directed the Curie        |
+|           |                     |           |   Laboratory                |
++-----------+---------------------+-----------+-----------------------------+
+:::
+```
+
+**A pipe table with `collapse`**, writing one row per item. Consecutive rows that
+differ *only* in the named column are merged:
+
+```markdown
+::: {.entries style="detailed" collapse="why"}
+| what      | with                | when      | why                        |
+|-----------|---------------------|-----------|----------------------------|
+| Professor | University of Paris | 1906–1934 | First woman to hold the chair |
+| Professor | University of Paris | 1906–1934 | Directed the Curie Laboratory |
+:::
+```
+
+**Several columns at once**, by mapping them onto one field. Empty cells are
+skipped:
+
+```markdown
+::: {.entries style="detailed" fields="{why: [achievements, honour]}"}
+```
+
+## Generating listings from code
+
+Put the same options in a code cell, under `vitae`. The cell's table output is
+picked up wherever it appears:
+
+````markdown
+```{r}
+#| echo: false
+#| vitae:
+#|   style: brief
+#|   fields:
+#|     what: prize
+#|     with: awarded_by
+#|     when: year
+awards <- read.csv("awards.csv")
+awards[order(-awards$year), ]
+```
+````
+
+This is the real reason to generate listings: **filtering and sorting happen in
+the language you already use.** There is no CV-specific query syntax to learn —
+use `dplyr`, `polars`, or plain indexing.
+
+Note the cell simply names the data frame. Most CV templates set `df-print: kable`
+so a printed data frame becomes a table automatically, and the Jupyter engine
+does the same for a pandas `DataFrame`:
+
+````markdown
+```{python}
+#| echo: false
+#| vitae: {style: brief}
+import pandas as pd
+pd.DataFrame({"what": ["Nobel Prize"], "when": [1903]})
+```
+````
+
+Use `echo: false` unless you want the code itself in your CV. The cell and its
+output are replaced by the formatted listing either way.
+
+### When the output is not a table
+
+Auto-printing only works for objects your engine knows how to render — a data
+frame or a pandas `DataFrame`, but not a plain list or dictionary. Anything else
+prints verbatim, and you get a warning:
+
+```
+(W) vitae: code cell (style 'brief') produced no table, so no entries were rendered.
+```
+
+## Reading CSV directly
+
+For a path that does not depend on the engine at all, print CSV and say so:
+
+````markdown
+```{r}
+#| echo: false
+#| vitae:
+#|   style: brief
+#|   input: csv
+write.csv(awards, stdout(), row.names = FALSE)
+```
+````
+
+This works from any language — printing text is something they all do:
+
+````markdown
+```{python}
+#| echo: false
+#| vitae: {style: brief, input: csv}
+import sys
+awards.to_csv(sys.stdout, index=False)
+```
+````
+
+`input: csv` is worth reaching for when:
+
+- your engine will not render the object as a table
+- values contain **commas, quotes or line breaks**, which a markdown table cannot
+  carry
+- you want output that does not change when a library updates its printing
+
+Reading a `.csv` file needs no code beyond loading it:
+
+````markdown
+```{r}
+#| echo: false
+#| vitae: {style: detailed, input: csv}
+writeLines(readLines("cv-data/employment.csv"))
+```
+````
+
+## Formatting entry text
+
+Cell contents are ordinary markdown, converted correctly for whatever you are
+rendering to. This works in every input method above.
+
+| You write            | You get                        |
+|----------------------|--------------------------------|
+| `**Solvay Council**` | bold                           |
+| `*Sorbonne*`         | italic                         |
+| `[report](https://…)`| a link                         |
+| `$E = mc^2$`         | maths                          |
+| `100%`, `AT&T`       | literal — escaping is automatic |
+
+```markdown
+::: {.entries style="brief"}
+| what                                         | when |
+|----------------------------------------------|------|
+| Member, **Solvay Council**                   | 1911 |
+| Director, Red Cross Radiology (100% wartime) | 1914 |
+| See [the report](https://example.org) & more | 1920 |
+:::
+```
+
+You never need to escape LaTeX specials yourself. `%`, `&`, `_` and `#` are
+handled, and doing it manually will double-escape.
+
+::: {.callout-warning}
+## Line breaks in pipe tables
+
+A pipe table cell cannot contain a line break, and an unescaped `|` will break
+the row. If your text needs either, use a grid table or `input: csv`.
+:::
+
+## Several listings at once
+
+One `.entries` div may hold more than one table, and the options apply to all of
+them. Useful when a section has natural groupings:
+
+```markdown
+::: {.entries style="skills"}
+| what       | with                             |
+|------------|----------------------------------|
+| Techniques | Fractional crystallisation       |
+
+| what       | with                             |
+|------------|----------------------------------|
+| Languages  | Polish, French, Russian          |
+:::
+```
+
+The same applies to a code cell that emits several tables in a loop.
+
+## Overriding a template
+
+To change how one style looks without leaving your document, point it at your own
+template file:
+
+```yaml
+---
+format: awesomecv-pdf
+vitae:
+  templates:
+    timeline: templates/timeline.tex
+---
+```
+
+Any style can be overridden or added this way, including one your CV template
+does not provide. See [Creating CV templates](creating-templates.qmd) for how to
+write the file.
+
+## Options reference
+
+Written as div attributes, or under `vitae:` in cell options.
+
+| Option     | Default    | Meaning                                              |
+|------------|------------|------------------------------------------------------|
+| `style`    | `detailed` | Which layout to use                                  |
+| `fields`   | identity   | Rename columns, `{what: Degree}`                     |
+| `collapse` | off        | Merge consecutive rows differing only in this column |
+| `input`    | off        | Read printed data instead of a table (`csv`)         |
+
+Both spellings carry the same value. On a div it is a flow mapping:
+
+```markdown
+::: {.entries style="brief" fields="{what: prize, when: year}"}
+```
+
+In cell options it may be a nested block:
+
+````markdown
+```{r}
+#| vitae:
+#|   style: brief
+#|   fields:
+#|     what: prize
+#|     when: year
+```
+````
+
+## Troubleshooting
+
+`produced no table, so no entries were rendered`
+: The engine printed your object verbatim. Use `input: csv`, or convert it
+  yourself with `knitr::kable()` or `.to_markdown()`.
+
+`unknown style 'x'; this format provides …`
+: A typo, or a style your template does not implement. The listed names are what
+  it supports.
+
+`could not parse fields '…'`
+: `fields` needs a mapping in braces: `{what: Degree}`, not `what=Degree`.
+
+`ignoring unknown attribute 'x' on .entries div`
+: A misspelled option name. Check it against the table above.
+
+**Entries render but a column is missing.** The template only shows the fields it
+knows about. Check the column reached it under the right name — an unrenamed
+`Degree` stays `Degree`, and a template looking for `what` will not find it.

@@ -1,0 +1,30 @@
+project:
+  type: website
+
+website:
+  title: "Quarto Vitae"
+  description: "Quarto extensions for writing CVs, résumés, and biographies."
+  site-url: "https://quarto-vitae.github.io"
+  repo-url: "https://github.com/quarto-vitae/quarto-vitae.github.io"
+  repo-actions: [issue]
+  page-navigation: true
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: using-templates.qmd
+        text: Writing a CV
+      - href: creating-templates.qmd
+        text: Creating Templates
+    right:
+      - icon: github
+        href: https://github.com/orgs/quarto-vitae/repositories
+        aria-label: Quarto Vitae templates on GitHub
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
