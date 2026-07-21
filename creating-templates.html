@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Creating CV templates – Quarto Vitae</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ab8ef9ee468b0a831b64f051da950bc8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Quarto Vitae</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./using-templates.html"> 
+<span class="menu-text">Writing a CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./creating-templates.html" aria-current="page"> 
+<span class="menu-text">Creating Templates</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/orgs/quarto-vitae/repositories"> <i class="bi bi-github" role="img" aria-label="Quarto Vitae templates on GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#how-the-pieces-fit" id="toc-how-the-pieces-fit" class="nav-link active" data-scroll-target="#how-the-pieces-fit">How the pieces fit</a></li>
+  <li><a href="#anatomy-of-an-extension" id="toc-anatomy-of-an-extension" class="nav-link" data-scroll-target="#anatomy-of-an-extension">Anatomy of an extension</a>
+  <ul class="collapse">
+  <li><a href="#embedding-the-filter" id="toc-embedding-the-filter" class="nav-link" data-scroll-target="#embedding-the-filter">Embedding the filter</a></li>
+  <li><a href="#extension.yml" id="toc-extension.yml" class="nav-link" data-scroll-target="#extension.yml"><code>_extension.yml</code></a></li>
+  </ul></li>
+  <li><a href="#entry-listing-handlers" id="toc-entry-listing-handlers" class="nav-link" data-scroll-target="#entry-listing-handlers">Entry listing handlers</a>
+  <ul class="collapse">
+  <li><a href="#resolution-order" id="toc-resolution-order" class="nav-link" data-scroll-target="#resolution-order">Resolution order</a></li>
+  <li><a href="#the-template-context" id="toc-the-template-context" class="nav-link" data-scroll-target="#the-template-context">The template context</a></li>
+  <li><a href="#four-behaviours-worth-knowing" id="toc-four-behaviours-worth-knowing" class="nav-link" data-scroll-target="#four-behaviours-worth-knowing">Four behaviours worth knowing</a></li>
+  <li><a href="#a-worked-example" id="toc-a-worked-example" class="nav-link" data-scroll-target="#a-worked-example">A worked example</a></li>
+  </ul></li>
+  <li><a href="#conventional-fields" id="toc-conventional-fields" class="nav-link" data-scroll-target="#conventional-fields">Conventional fields</a></li>
+  <li><a href="#naming-styles" id="toc-naming-styles" class="nav-link" data-scroll-target="#naming-styles">Naming styles</a></li>
+  <li><a href="#what-authors-can-hand-you" id="toc-what-authors-can-hand-you" class="nav-link" data-scroll-target="#what-authors-can-hand-you">What authors can hand you</a></li>
+  <li><a href="#checklist" id="toc-checklist" class="nav-link" data-scroll-target="#checklist">Checklist</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/quarto-vitae/quarto-vitae.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Creating CV templates</h1>
+<p class="subtitle lead">A guide for template authors</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>A CV template is an ordinary Quarto format extension that additionally ships a set of <strong>entry listing handlers</strong> — small pandoc templates describing how one section of a CV should look. The <code>vitae-entries</code> filter does everything else: finding the data, renaming columns, and calling your handler once per listing.</p>
+<p>This means adding a new CV design requires <strong>no Lua and no changes to the filter</strong>. If you can write the LaTeX or Typst for one entry, you can ship a template.</p>
+<section id="how-the-pieces-fit" class="level2">
+<h2 class="anchored" data-anchor-id="how-the-pieces-fit">How the pieces fit</h2>
+<pre><code>  author writes                 vitae-entries filter          your template
+  ─────────────                 ────────────────────          ─────────────
+  a table, or a cell    ──►     find the table                entries/detailed.tex
+  that prints data              apply `fields` renaming  ──►  entries/brief.tex
+  + `style: detailed`           hand off to a handler         entries/skills.tex</code></pre>
+<p>Your extension contributes two things: a Quarto <strong>format</strong> (the document class, fonts, title block) and a directory of <strong>handlers</strong> for the listing styles that format supports.</p>
+</section>
+<section id="anatomy-of-an-extension" class="level2">
+<h2 class="anchored" data-anchor-id="anatomy-of-an-extension">Anatomy of an extension</h2>
+<pre><code>_extensions/awesomecv/
+├── _extension.yml
+├── awesome-cv.cls          # the document class
+├── awesome-cv.tex          # the pandoc template for the whole document
+├── fonts/
+├── _extensions/            # ← the embedded curriculum filters
+│   └── quarto-vitae/
+│       └── vitae-entries/
+└── entries/                # ← the listing handlers
+    ├── detailed.tex
+    ├── brief.tex
+    └── skills.tex</code></pre>
+<section id="embedding-the-filter" class="level3">
+<h3 class="anchored" data-anchor-id="embedding-the-filter">Embedding the filter</h3>
+<p>Quarto will not resolve one extension from another by name alone, so a template distributed on its own has to carry its own copy of the filter. This is what <code>quarto add --embed</code> is for. From the root of your template repository:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> add quarto-vitae/curriculum <span class="at">--embed</span> awesomecv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The first argument is the <a href="https://github.com/quarto-vitae/curriculum">curriculum</a> repository; the <code>--embed</code> argument is the directory name of <em>your</em> extension under <code>_extensions/</code>. The copy lands inside your extension, as shown above, and <code>filters: [vitae-entries]</code> then resolves from anywhere in that tree. You do not need to reference it by path.</p>
+<p>Commit the embedded copy. It is part of your extension as distributed, and without it your format will not render for anyone else.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Embed before you reference
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Add the filter <em>before</em> you write <code>filters: [vitae-entries]</code> in your <code>_extension.yml</code>. Quarto validates the target extension while installing into it, so a reference to a filter that is not there yet makes the install fail with the very <code>Failed to resolve referenced filter</code> error that embedding is meant to cure. This affects only the first <code>add</code>; later updates are fine.</p>
+</div>
+</div>
+<p>To pick up a new release of curriculum, re-embed with the same pair of arguments:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> update quarto-vitae/curriculum <span class="at">--embed</span> awesomecv</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is a clean replace rather than an overlay, so files dropped upstream are removed instead of lingering. Commit the result and cut a release of your template.</p>
+<p>Note what this means for the people using your template: updating your template refreshes the copy of curriculum inside it, so they need no separate step, and they have no way to update the filter themselves. A fix in curriculum reaches your users only once you re-embed and release. Nothing yet warns about a stale embedded copy, so keeping it current is your responsibility rather than theirs.</p>
+</section>
+<section id="extension.yml" class="level3">
+<h3 class="anchored" data-anchor-id="extension.yml"><code>_extension.yml</code></h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Awesome CV</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> Your Name</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1.0</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">quarto-required</span><span class="kw">:</span><span class="at"> </span><span class="st">"&gt;=1.7.0"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">contributes</span><span class="kw">:</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">formats</span><span class="kw">:</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">pdf</span><span class="kw">:</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">pdf-engine</span><span class="kw">:</span><span class="at"> xelatex</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">template</span><span class="kw">:</span><span class="at"> awesome-cv.tex</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">format-resources</span><span class="kw">:</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> awesome-cv.cls</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> fonts</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">filters</span><span class="kw">:</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> vitae-entries</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">df-print</span><span class="kw">:</span><span class="at"> kable</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">vitae</span><span class="kw">:</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="fu">styles</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">detailed</span><span class="kw">,</span><span class="at"> brief</span><span class="kw">,</span><span class="at"> skills</span><span class="kw">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The vitae-specific parts:</p>
+<dl>
+<dt><code>filters: [vitae-entries]</code></dt>
+<dd>
+Runs the filter, resolved from the embedded copy added above. Without it, your <code>.entries</code> divs pass through untouched.
+</dd>
+<dt><code>vitae.styles</code></dt>
+<dd>
+The listing styles your format implements. This is <strong>not</strong> how styles are discovered — the filter finds handlers by filename. It is how the filter tells a <em>missing handler</em> from a <em>typo by the author</em>. Declare <code>detailed</code> but ship no <code>detailed.tex</code> and you get a warning naming it a packaging bug; an author asking for <code>style="timelin"</code> gets <code>unknown style 'timelin'; this format   provides detailed, brief, skills</code>. Skip it and both fail quietly.
+</dd>
+<dt><code>df-print: kable</code></dt>
+<dd>
+Optional but recommended. Lets a knitr cell print a data frame and still yield a table, so authors need no <code>knitr::kable()</code> call. It is a <strong>format</strong> option — Quarto ignores it as a cell option — so opting in is your job, not the author’s. It has no effect on the Jupyter engine, which renders a pandas <code>DataFrame</code> as a table regardless.
+</dd>
+</dl>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span><code>entries/</code> does not go in <code>format-resources</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Resources are copied next to the rendered document <em>after</em> pandoc runs, so a handler listed there resolves only on the <em>second</em> render — working locally forever while failing in CI. The filter reads <code>_extensions/**/entries/</code> directly, so just leave the directory where it is.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="entry-listing-handlers" class="level2">
+<h2 class="anchored" data-anchor-id="entry-listing-handlers">Entry listing handlers</h2>
+<p>A handler is a <a href="https://pandoc.org/MANUAL.html#templates">pandoc template</a> named after the style, with an extension matching the target format:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Target format</th>
+<th>Handler filename</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>LaTeX / PDF</td>
+<td><code>entries/brief.tex</code></td>
+</tr>
+<tr class="even">
+<td>Typst</td>
+<td><code>entries/brief.typ</code></td>
+</tr>
+<tr class="odd">
+<td>HTML</td>
+<td><code>entries/brief.html</code></td>
+</tr>
+<tr class="even">
+<td>anything else</td>
+<td><code>entries/brief.md</code></td>
+</tr>
+</tbody>
+</table>
+<p>Ship one per format you support. A format with no handler for a requested style falls back to a plain generic layout, so nothing breaks — it just looks unstyled.</p>
+<section id="resolution-order" class="level3">
+<h3 class="anchored" data-anchor-id="resolution-order">Resolution order</h3>
+<p>The filter takes the first that exists:</p>
+<ol type="1">
+<li><code>vitae.templates.&lt;style&gt;</code> in document metadata — an author’s override</li>
+<li><code>entries/&lt;style&gt;.&lt;ext&gt;</code> beside the document — a per-document tweak</li>
+<li><code>_extensions/**/entries/&lt;style&gt;.&lt;ext&gt;</code> — <strong>your extension</strong></li>
+<li>the generic fallback shipped with <code>vitae-entries</code></li>
+</ol>
+<p>Authors can therefore override any handler you ship without forking your extension, and you should treat that as a feature.</p>
+</section>
+<section id="the-template-context" class="level3">
+<h3 class="anchored" data-anchor-id="the-template-context">The template context</h3>
+<p>Two variables are in scope:</p>
+<dl>
+<dt><code>entries</code></dt>
+<dd>
+The listing, one item per row of the author’s data.
+</dd>
+<dt><code>style</code></dt>
+<dd>
+The style name, useful when several handlers share an include.
+</dd>
+</dl>
+<p>Each entry’s keys are the <strong>column names</strong> of the author’s table, after any <code>fields</code> renaming. There is no fixed schema — the filter has no vocabulary of its own, so a column named <code>grade</code> is available as <code>$entries.grade$</code> with no configuration anywhere.</p>
+<p>A minimal handler:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>$for(entries)$</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>\cventry{$entries.what$}{$entries.with$}{$entries.where$}{$entries.when$}{}</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>$endfor$</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="four-behaviours-worth-knowing" class="level3">
+<h3 class="anchored" data-anchor-id="four-behaviours-worth-knowing">Four behaviours worth knowing</h3>
+<p><strong>Missing fields are empty, not errors.</strong> An undefined variable renders as the empty string, <code>$if()$</code> on it is false, and <code>$for()$</code> over it iterates zero times. You do not need to guard against columns the author omitted.</p>
+<p><strong>A field may be a string or a list.</strong> A grid-table cell containing a bullet list, several columns merged with <code>{why: [a, b]}</code>, or <code>collapse</code> all produce lists. <code>$for()$</code> handles both — it iterates a plain string exactly once — so looping is always safe:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>$if(entries.why)$\begin{cvitems}</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>$for(entries.why)$  \item $entries.why$</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>$endfor$\end{cvitems}$endif$</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Values are already rendered and escaped.</strong> The filter converts each cell through pandoc into your target format, so <code>**bold**</code> arrives as <code>\textbf{bold}</code> and <code>100%</code> as <code>100\%</code>. Do not escape again, and do not wrap values in anything that would re-interpret them.</p>
+<p><strong>Use <code>$sep$</code> for separators</strong>, rather than emitting a trailing comma:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>$for(entries.why)$$entries.why$$sep$, $endfor$</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Comments are <code>$-- like this</code> and are worth using — handlers are read by people adapting them.</p>
+</section>
+<section id="a-worked-example" class="level3">
+<h3 class="anchored" data-anchor-id="a-worked-example">A worked example</h3>
+<p>Awesome CV’s <code>\cvhonor</code> has a fixed-width, right-aligned location column that suits short values only. Its <code>brief</code> handler prefers <code>where</code>, falling back to <code>with</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode default code-with-copy"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>$-- \cvhonor{&lt;position&gt;}{&lt;title&gt;}{&lt;location&gt;}{&lt;date&gt;}</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>\begin{cvhonors}</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>$for(entries)$</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  \cvhonor{}{$entries.what$}{$if(entries.where)$$entries.where$$else$$entries.with$$endif$}{$entries.when$}</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>$endfor$</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>\end{cvhonors}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is the intended way to handle a design that does not map cleanly onto the conventional fields: <strong>decide it in the handler</strong>, where the constraint actually lives, rather than asking authors to reshape their data per template.</p>
+</section>
+</section>
+<section id="conventional-fields" class="level2">
+<h2 class="anchored" data-anchor-id="conventional-fields">Conventional fields</h2>
+<p>The filter implements no field names. These five are a <strong>convention among template authors</strong>, and that is precisely where their value lies: an author’s table can feed a LaTeX CV and a Typst one, or move between designs, without being rewritten. Honour them where they make sense.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 36%">
+<col style="width: 51%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Meaning</th>
+<th>Typical content</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>what</code></td>
+<td>the thing itself</td>
+<td>degree, job title, award, skill group</td>
+</tr>
+<tr class="even">
+<td><code>when</code></td>
+<td>when it happened</td>
+<td><code>2018–2022</code>, <code>1903</code></td>
+</tr>
+<tr class="odd">
+<td><code>with</code></td>
+<td>the associated body</td>
+<td>university, employer, funder</td>
+</tr>
+<tr class="even">
+<td><code>where</code></td>
+<td>the place</td>
+<td>city, country</td>
+</tr>
+<tr class="odd">
+<td><code>why</code></td>
+<td>elaboration</td>
+<td>achievements, description — often a list</td>
+</tr>
+</tbody>
+</table>
+<p>They are deliberately semantic-free so one vocabulary covers education, employment, awards and service alike. <code>what</code> and <code>when</code> are near-universal; support them in every handler. <code>why</code> should be looped, not printed, since it is so often a list.</p>
+<p>Adding fields of your own is fine and needs no permission — a column reaches your template under its own name. Prefer a new name over overloading an existing one: if your design shows a grade, take <code>$entries.grade$</code> rather than expecting authors to smuggle it through <code>where</code>.</p>
+</section>
+<section id="naming-styles" class="level2">
+<h2 class="anchored" data-anchor-id="naming-styles">Naming styles</h2>
+<p><strong>Name a style for its shape, not for the section it happens to suit.</strong></p>
+<p><code>detailed</code>, <code>brief</code> and <code>skills</code> describe layouts. <code>education</code> and <code>employment</code> would describe <em>sections</em>, which is a mistake: the same layout serves education, employment and service, while one CV’s education section may want a different shape from another’s. Sections are the author’s business; shapes are yours.</p>
+<p>Reuse these names where the shape matches, so authors can switch designs without editing every div:</p>
+<dl>
+<dt><code>detailed</code></dt>
+<dd>
+A multi-line entry with a heading, subheading, date, place, and a bulleted elaboration. The workhorse.
+</dd>
+<dt><code>brief</code></dt>
+<dd>
+One line per entry. Titles, dates, and little else.
+</dd>
+<dt><code>skills</code></dt>
+<dd>
+Two columns — a category and its members.
+</dd>
+</dl>
+<p>Introduce a new name only when the shape is genuinely new (<code>publications</code>, <code>timeline</code>), and declare it in <code>vitae.styles</code> so authors get a useful error rather than an unstyled fallback.</p>
+</section>
+<section id="what-authors-can-hand-you" class="level2">
+<h2 class="anchored" data-anchor-id="what-authors-can-hand-you">What authors can hand you</h2>
+<p>Worth knowing, since it determines what reaches your handler:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 84%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>style</code></td>
+<td>which handler to use (default <code>detailed</code>)</td>
+</tr>
+<tr class="even">
+<td><code>fields</code></td>
+<td>rename columns, <code>{what: Degree}</code>; the default is the identity</td>
+</tr>
+<tr class="odd">
+<td><code>collapse</code></td>
+<td>merge consecutive rows differing only in the named column</td>
+</tr>
+<tr class="even">
+<td><code>input</code></td>
+<td>read printed data instead of a rendered table (<code>csv</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>as</code></td>
+<td><code>markdown</code> to re-parse your output, useful for HTML handlers</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="checklist" class="level2">
+<h2 class="anchored" data-anchor-id="checklist">Checklist</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">curriculum embedded with <code>quarto add --embed</code>, and committed</label></li>
+<li><label><input type="checkbox"><code>filters: [vitae-entries]</code> in the format</label></li>
+<li><label><input type="checkbox">a handler per style, per target format, in <code>entries/</code></label></li>
+<li><label><input type="checkbox"><code>entries/</code> <strong>not</strong> in <code>format-resources</code></label></li>
+<li><label><input type="checkbox"><code>vitae.styles</code> lists exactly what you ship</label></li>
+<li><label><input type="checkbox"><code>df-print: kable</code> if you expect knitr authors</label></li>
+<li><label><input type="checkbox">handlers loop <code>why</code> rather than printing it</label></li>
+<li><label><input type="checkbox">handlers do no escaping of their own</label></li>
+<li><label><input type="checkbox">rendered from a <strong>clean checkout</strong> — the resource-timing trap above hides itself on any repeat render</label></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/quarto-vitae\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/quarto-vitae/quarto-vitae.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
