@@ -1,0 +1,40 @@
+meta:
+  name: Quarto Vitae
+
+logo:
+  images:
+    hex: images/vitae-hex.svg
+  small: hex
+  medium: hex
+
+color:
+  palette:
+    black: "#111111"
+    white: "#FFFFFF"
+    rust: "#A8461F"
+    rust-dark: "#7C3316"
+    gray-100: "#F7F7F7"
+    gray-300: "#E3E3E3"
+    gray-600: "#595959"
+  foreground: black
+  background: white
+  primary: rust
+  secondary: black
+  link: rust
+
+typography:
+  fonts:
+    - family: Lora
+      source: google
+      weight: [500, 600, 700]
+      style: [normal, italic]
+    - family: "Source Sans 3"
+      source: google
+      weight: [400, 500, 600]
+  base:
+    family: "Source Sans 3"
+  headings:
+    family: Lora
+    weight: 600
+  link:
+    weight: 600
