@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1200" height="630" viewBox="0 0 1200 630">
+  <title>Quarto Vitae — Quarto extensions for writing CVs and résumés</title>
+
+  <defs>
+    <clipPath id="canvas-clip">
+      <rect x="0" y="0" width="1200" height="630" rx="0" />
+    </clipPath>
+    <radialGradient id="glow" cx="78%" cy="18%" r="75%">
+      <stop offset="0%" stop-color="#A8461F" stop-opacity="0.10" />
+      <stop offset="100%" stop-color="#A8461F" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <g clip-path="url(#canvas-clip)">
+    <!-- background -->
+    <rect x="0" y="0" width="1200" height="630" fill="#FFFFFF" />
+    <rect x="0" y="0" width="1200" height="630" fill="url(#glow)" />
+
+    <!-- top brand rule -->
+    <rect x="0" y="0" width="1200" height="10" fill="#A8461F" />
+
+    <g transform="translate(0, 16)">
+      <!-- logo mark -->
+      <g transform="translate(96, 122) scale(0.535)">
+        <image href="vitae-hex.svg" x="0" y="42" width="612" height="707" />
+      </g>
+
+      <!-- divider -->
+      <line x1="470" y1="176" x2="470" y2="458" stroke="#E3E3E3" stroke-width="2" />
+
+      <!-- text block -->
+      <g font-family="'Source Sans 3', 'Segoe UI', Arial, sans-serif">
+        <text x="512" y="222" font-size="22" font-weight="600" letter-spacing="3"
+              fill="#A8461F">QUARTO EXTENSIONS</text>
+      </g>
+
+      <text x="510" y="312" font-family="Lora, Georgia, 'Times New Roman', serif"
+            font-size="86" font-weight="700" fill="#111111">Quarto Vitae</text>
+
+      <text x="512" y="384" font-family="Lora, Georgia, 'Times New Roman', serif"
+            font-style="italic" font-weight="500" font-size="31"
+            fill="#595959">Write data-driven CVs and résumés.</text>
+
+      <!-- footer -->
+      <text x="512" y="458" font-family="'Source Sans 3', 'Segoe UI', Arial, sans-serif"
+            font-size="21" font-weight="600" fill="#595959">quarto-vitae.github.io</text>
+    </g>
+  </g>
+</svg>

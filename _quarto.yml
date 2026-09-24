@@ -4,10 +4,14 @@ project:
 
 website:
   title: "Quarto Vitae"
-  description: "Quarto extensions for writing CVs, résumés, and biographies."
+  description: "Quarto extensions for writing CVs and résumés."
   site-url: "https://quarto-vitae.github.io"
   repo-url: "https://github.com/quarto-vitae/quarto-vitae.github.io"
   repo-actions: [issue]
+  open-graph:
+    image: images/opengraph.png
+  twitter-card:
+    image: images/opengraph.png
   page-navigation: true
   navbar:
     background: white
