@@ -1,5 +1,6 @@
 project:
   type: website
+  pre-render: scripts/generate-templates.sh
 
 website:
   title: "Quarto Vitae"
@@ -9,9 +10,15 @@ website:
   repo-actions: [issue]
   page-navigation: true
   navbar:
+    background: white
+    foreground: black
+    logo: images/vitae-hex.svg
+    logo-alt: "Quarto Vitae"
     left:
       - href: index.qmd
         text: Home
+      - href: templates.qmd
+        text: Templates
       - href: using-templates.qmd
         text: Writing a CV
       - href: creating-templates.qmd

@@ -306,6 +306,23 @@ Worth knowing, since it determines what reaches your handler:
 | `input`    | read printed data instead of a rendered table (`csv`)         |
 | `as`       | `markdown` to re-parse your output, useful for HTML handlers  |
 
+## Getting listed on this site
+
+The [templates page](templates.qmd) is generated automatically, not
+maintained by hand. A repository is picked up as a template if it has, at its
+root:
+
+- a `template.qmd` — the starting document `quarto use template` creates
+- a `preview/` directory of PNG, JPEG, SVG or WebP images
+
+Any repository in the [quarto-vitae GitHub
+org](https://github.com/orgs/quarto-vitae/repositories) meeting both
+conditions appears automatically, using the repo's description, its README's
+first heading as the title, and the images in `preview/`. Templates hosted
+elsewhere can be added by listing `owner/repo` in this site's
+[`templates.yml`](https://github.com/quarto-vitae/quarto-vitae.github.io/blob/main/templates.yml)
+— open a pull request there.
+
 ## Checklist
 
 - [ ] curriculum embedded with `quarto add --embed`, and committed

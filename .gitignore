@@ -1,3 +1,5 @@
 /.quarto/
 **/*.quarto_ipynb
 /_site/
+/_templates-gallery.qmd
+/.cache/

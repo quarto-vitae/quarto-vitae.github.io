@@ -1,0 +1,14 @@
+---
+title: "Templates"
+subtitle: "CV designs you can use today"
+toc: false
+---
+
+Every template below is a Quarto format extension: install it, set `format:`
+in your document, and write your CV as described in
+[Writing a CV](using-templates.qmd). This list is generated automatically
+from the [quarto-vitae GitHub org](https://github.com/orgs/quarto-vitae/repositories)
+and a small list of community templates — see
+[Creating CV templates](creating-templates.qmd) if you'd like to add your own.
+
+{{< include _templates-gallery.qmd >}}

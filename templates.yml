@@ -1,0 +1,8 @@
+# Third-party templates to include on the templates page, in addition to
+# those discovered automatically from the quarto-vitae GitHub org (any repo
+# there with a template.qmd file and a preview/ directory at its root — see
+# creating-templates.qmd). List one "owner/repo" per line; the same
+# conventions are used to pull in its title, description and preview images.
+#
+# Example:
+# - someuser/some-quarto-cv-template
