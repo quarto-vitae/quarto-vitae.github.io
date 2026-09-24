@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>Creating CV templates – Quarto Vitae</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -65,17 +71,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./images/vitae-hex.svg" rel="icon" type="image/svg+xml">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-ab8ef9ee468b0a831b64f051da950bc8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-d7059f15171982aed9d4ed37159d4200.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-50c704c09d3cf03c87f99deb8ff29045.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-d7059f15171982aed9d4ed37159d4200.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -106,6 +116,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Creating CV templates – Quarto Vitae">
+<meta property="og:description" content="A guide for template authors">
+<meta property="og:image" content="https://quarto-vitae.github.io/images/opengraph.png">
+<meta property="og:site_name" content="Quarto Vitae">
+<meta property="og:image:height" content="630">
+<meta property="og:image:width" content="1200">
+<meta name="twitter:title" content="Creating CV templates – Quarto Vitae">
+<meta name="twitter:description" content="A guide for template authors">
+<meta name="twitter:image" content="https://quarto-vitae.github.io/images/opengraph.png">
+<meta name="twitter:image-height" content="630">
+<meta name="twitter:image-width" content="1200">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -115,6 +137,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./images/vitae-hex.svg" alt="Quarto Vitae" class="navbar-logo light-content">
+    <img src="./images/vitae-hex.svg" alt="Quarto Vitae" class="navbar-logo dark-content">
+    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Quarto Vitae</span>
     </a>
@@ -128,6 +154,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li class="nav-item">
     <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./templates.html"> 
+<span class="menu-text">Templates</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./using-templates.html"> 
@@ -176,6 +206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#conventional-fields" id="toc-conventional-fields" class="nav-link" data-scroll-target="#conventional-fields">Conventional fields</a></li>
   <li><a href="#naming-styles" id="toc-naming-styles" class="nav-link" data-scroll-target="#naming-styles">Naming styles</a></li>
   <li><a href="#what-authors-can-hand-you" id="toc-what-authors-can-hand-you" class="nav-link" data-scroll-target="#what-authors-can-hand-you">What authors can hand you</a></li>
+  <li><a href="#getting-listed-on-this-site" id="toc-getting-listed-on-this-site" class="nav-link" data-scroll-target="#getting-listed-on-this-site">Getting listed on this site</a></li>
   <li><a href="#checklist" id="toc-checklist" class="nav-link" data-scroll-target="#checklist">Checklist</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/quarto-vitae/quarto-vitae.github.io/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -279,7 +310,7 @@ Runs the filter, resolved from the embedded copy added above. Without it, your <
 </dd>
 <dt><code>vitae.styles</code></dt>
 <dd>
-The listing styles your format implements. This is <strong>not</strong> how styles are discovered — the filter finds handlers by filename. It is how the filter tells a <em>missing handler</em> from a <em>typo by the author</em>. Declare <code>detailed</code> but ship no <code>detailed.tex</code> and you get a warning naming it a packaging bug; an author asking for <code>style="timelin"</code> gets <code>unknown style 'timelin'; this format   provides detailed, brief, skills</code>. Skip it and both fail quietly.
+The listing styles your format implements. This is <strong>not</strong> how styles are discovered — the filter finds handlers by filename. It is how the filter tells a <em>missing handler</em> from a <em>typo by the author</em>. Declare <code>detailed</code> but ship no <code>detailed.tex</code> and you get a warning naming it a packaging bug; an author asking for <code>style="timelin"</code> gets <code>unknown style 'timelin'; this format provides detailed, brief, skills</code>. Skip it and both fail quietly.
 </dd>
 <dt><code>df-print: kable</code></dt>
 <dd>
@@ -490,6 +521,15 @@ Two columns — a category and its members.
 </tr>
 </tbody>
 </table>
+</section>
+<section id="getting-listed-on-this-site" class="level2">
+<h2 class="anchored" data-anchor-id="getting-listed-on-this-site">Getting listed on this site</h2>
+<p>The <a href="./templates.html">templates page</a> is generated automatically, not maintained by hand. A repository is picked up as a template if it has, at its root:</p>
+<ul>
+<li>a <code>template.qmd</code> — the starting document <code>quarto use template</code> creates</li>
+<li>a <code>preview/</code> directory of PNG, JPEG, SVG or WebP images</li>
+</ul>
+<p>Any repository in the <a href="https://github.com/orgs/quarto-vitae/repositories">quarto-vitae GitHub org</a> meeting both conditions appears automatically, using the repo’s description, its README’s first heading as the title, and the images in <code>preview/</code>. Templates hosted elsewhere can be added by listing <code>owner/repo</code> in this site’s <a href="https://github.com/quarto-vitae/quarto-vitae.github.io/blob/main/templates.yml"><code>templates.yml</code></a> — open a pull request there.</p>
 </section>
 <section id="checklist" class="level2">
 <h2 class="anchored" data-anchor-id="checklist">Checklist</h2>

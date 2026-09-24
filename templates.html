@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Quarto Vitae</title>
+<title>Templates – Quarto Vitae</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -25,41 +25,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -116,19 +81,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="– Quarto Vitae">
+<meta property="og:title" content="Templates – Quarto Vitae">
+<meta property="og:description" content="CV designs you can use today">
 <meta property="og:image" content="https://quarto-vitae.github.io/images/opengraph.png">
 <meta property="og:site_name" content="Quarto Vitae">
 <meta property="og:image:height" content="630">
 <meta property="og:image:width" content="1200">
-<meta name="twitter:title" content="– Quarto Vitae">
+<meta name="twitter:title" content="Templates – Quarto Vitae">
+<meta name="twitter:description" content="CV designs you can use today">
 <meta name="twitter:image" content="https://quarto-vitae.github.io/images/opengraph.png">
 <meta name="twitter:image-height" content="630">
 <meta name="twitter:image-width" content="1200">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -150,11 +117,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./templates.html"> 
+    <a class="nav-link active" href="./templates.html" aria-current="page"> 
 <span class="menu-text">Templates</span></a>
   </li>  
   <li class="nav-item">
@@ -180,134 +147,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content column-page" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Templates</h1>
+<p class="subtitle lead">CV designs you can use today</p>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<div class="landing-hero">
-<p><img src="images/vitae-hex.svg" class="landing-logo img-fluid" alt="Quarto Vitae hex logo"></p>
-<section id="quarto-vitae" class="level1">
-<h1>Quarto Vitae</h1>
-<div class="landing-lede">
-<p>Quarto extensions for writing CVs and résumés.</p>
-</div>
-<div class="landing-body">
-<p>Populate your CV with entries drawn from a spreadsheet, script, or database.</p>
-</div>
-<div class="landing-links">
-<p><a href="./templates.html" class="btn btn-primary" role="button">Browse templates</a></p>
-<p><a href="./using-templates.html" class="hero-link">Writing a CV</a></p>
-</div>
-</section>
-</div>
-<div class="landing-fundamentals">
-<div class="landing-templates-header">
-<p><span class="landing-eyebrow">Fundamentals</span></p>
-<section id="data-driven-cvs" class="level2">
-<h2 class="anchored" data-anchor-id="data-driven-cvs">Data-driven CVs</h2>
-</section>
-</div>
-<p>CV entries are rows from a data source: a data frame, a CSV file, or a bibliography.</p>
-<p>Store all your expertise and experiences in data, then filter down to what’s relevant for each job.</p>
-<div class="fundamentals-row">
-<div class="fundamentals-code">
-<p><strong>From your data</strong></p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href=""><svg class="lang-icon" viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.746c-6.627 0-12 3.599-12 8.037 0 3.897 4.144 7.144 9.64 7.88V16.26c-2.924-.915-4.925-2.755-4.925-4.877 0-3.035 4.084-5.494 9.12-5.494 5.038 0 8.757 1.683 8.757 5.494 0 1.976-.999 3.379-2.662 4.272.09.066.174.128.258.216.169.149.25.363.372.544 2.128-1.45 3.44-3.437 3.44-5.631 0-4.44-5.373-8.038-12-8.038zm-2.111 4.99v13.516l4.093-.002-.002-5.291h1.1c.225 0 .321.066.549.25.272.22.715.982.715.982l2.164 4.063 4.627-.002-2.864-4.826s-.086-.193-.265-.383a2.22 2.22 0 00-.582-.416c-.422-.214-1.149-.434-1.149-.434s3.578-.264 3.578-3.826c0-3.562-3.744-3.63-3.744-3.63zm4.127 2.93l2.478.002s1.149-.062 1.149 1.127c0 1.165-1.149 1.17-1.149 1.17h-2.478zm1.754 6.119c-.494.049-1.012.079-1.54.088v1.807a16.622 16.622 0 002.37-.473l-.471-.891s-.108-.183-.248-.394c-.039-.054-.08-.098-.111-.137z"></path></svg> R</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href=""><svg class="lang-icon" viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"></path></svg> Python</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href=""><svg class="lang-icon" viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.138 17.569a5.569 5.569 0 1 1-11.138 0 5.569 5.569 0 1 1 11.138 0zm6.431-11.138a5.569 5.569 0 1 1-11.138 0 5.569 5.569 0 1 1 11.138 0zM24 17.569a5.569 5.569 0 1 1-11.138 0 5.569 5.569 0 1 1 11.138 0z"></path></svg> Julia</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| vitae: {style: detailed}</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">what =</span> <span class="st">"Ph.D. in Physics"</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">with =</span> <span class="st">"University of Paris"</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">when =</span> <span class="st">"1891-1895"</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">why  =</span> <span class="st">"Discovered polonium and radium"</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| vitae: {style: detailed}</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>pd.DataFrame({</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"what"</span>: [<span class="st">"Ph.D. in Physics"</span>],</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"with"</span>: [<span class="st">"University of Paris"</span>],</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"when"</span>: [<span class="st">"1891-1895"</span>],</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"why"</span>:  [<span class="st">"Discovered polonium and radium"</span>],</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| vitae: {style: detailed}</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">DataFrame</span>(</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  what <span class="op">=</span> <span class="st">"Ph.D. in Physics"</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  with <span class="op">=</span> <span class="st">"University of Paris"</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  when <span class="op">=</span> <span class="st">"1891-1895"</span>,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  why  <span class="op">=</span> <span class="st">"Discovered polonium and radium"</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-</div>
-<div class="fundamentals-arrow" aria-hidden="true">
-<p>→</p>
-</div>
-<div class="fundamentals-preview">
-<p><span class="template-badge">Rendered</span></p>
-<div class="cv-entry">
-<div class="cv-entry-row">
-<p><span class="cv-entry-title">Ph.D.&nbsp;in Physics</span> <span class="cv-entry-date">1891-1895</span></p>
-</div>
-<div class="cv-entry-sub">
-University of Paris
-</div>
-<ul class="cv-entry-desc">
-<li>
-Discovered polonium and radium
-</li>
-</ul>
-</div>
-</div>
-</div>
-<p>A bibliography works the same way, filtered directly from a <code>.bib</code> file:</p>
-<div class="fundamentals-row">
-<div class="fundamentals-code">
-<p><strong>From a bibliography</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>::: {.entries style="bibliography" file="pubs.bib"}</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>:::</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="fundamentals-arrow" aria-hidden="true">
-<p>→</p>
-</div>
-<div class="fundamentals-preview">
-<p><span class="template-badge">Rendered</span></p>
-<div class="cv-bib">
-<p>Curie, M., &amp; Curie, P. (1898). On a new, strongly radioactive substance contained in pitchblende. <em>Comptes Rendus</em>, 127, 175-178.</p>
-</div>
-</div>
-</div>
-<p><a href="./using-templates.html" class="hero-link">Learn how to write a CV with vitae →</a></p>
-</div>
-<div class="landing-templates">
-<div class="landing-templates-header">
-<p><span class="landing-eyebrow">Templates</span></p>
-<section id="pick-a-design-and-start-writing" class="level2">
-<h2 class="anchored" data-anchor-id="pick-a-design-and-start-writing">Pick a design and start writing</h2>
-</section>
-</div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Every template below is a Quarto format extension: install it, set <code>format:</code> in your document, and write your CV as described in <a href="./using-templates.html">Writing a CV</a>. This list is generated automatically from the <a href="https://github.com/orgs/quarto-vitae/repositories">quarto-vitae GitHub org</a> and a small list of community templates — see <a href="./creating-templates.html">Creating CV templates</a> if you’d like to add your own.</p>
 <!-- Generated by scripts/generate-templates.sh. Do not edit by hand. -->
 <div class="template-grid">
 <div class="template-card">
@@ -330,11 +197,6 @@ Discovered polonium and radium
 <h4 class="anchored" data-anchor-id="latexcv"><a href="https://github.com/quarto-vitae/latexcv">latexcv</a></h4>
 <p>A Quarto vitae template for latexcv</p>
 </section>
-</div>
-</div>
-<div class="landing-templates-footer">
-<p><a href="./templates.html" class="hero-link">Browse all templates →</a></p>
-<p><a href="./creating-templates.html" class="hero-link">Create your own template →</a></p>
 </div>
 </div>
 

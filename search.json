@@ -1,10 +1,73 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Quarto Vitae",
+    "objectID": "templates.html",
+    "href": "templates.html",
+    "title": "Templates",
     "section": "",
-    "text": "Quarto Vitae\nQuarto extensions for writing CVs, résumés, and biographies.\n\n\n\n\n\n\nNoteWork in progress\n\n\n\nThis site is still under construction. In the meantime, templates for Quarto Vitae are available in the quarto-vitae GitHub organisation.\n\n\n\nBrowse templates on GitHub Creating your own template"
+    "text": "Every template below is a Quarto format extension: install it, set format: in your document, and write your CV as described in Writing a CV. This list is generated automatically from the quarto-vitae GitHub org and a small list of community templates — see Creating CV templates if you’d like to add your own.\n\n\n\n\n\nAwesome CV\nA Quarto vitae template for Awesome-CV\n\n\n\n\n\nHyndman CV\nA Quarto vitae template created and used by Rob Hyndman\n\n\n\n\n\nlatexcv\nA Quarto vitae template for latexcv"
+  },
+  {
+    "objectID": "creating-templates.html",
+    "href": "creating-templates.html",
+    "title": "Creating CV templates",
+    "section": "",
+    "text": "A CV template is an ordinary Quarto format extension that additionally ships a set of entry listing handlers — small pandoc templates describing how one section of a CV should look. The vitae-entries filter does everything else: finding the data, renaming columns, and calling your handler once per listing.\nThis means adding a new CV design requires no Lua and no changes to the filter. If you can write the LaTeX or Typst for one entry, you can ship a template."
+  },
+  {
+    "objectID": "creating-templates.html#how-the-pieces-fit",
+    "href": "creating-templates.html#how-the-pieces-fit",
+    "title": "Creating CV templates",
+    "section": "How the pieces fit",
+    "text": "How the pieces fit\n  author writes                 vitae-entries filter          your template\n  ─────────────                 ────────────────────          ─────────────\n  a table, or a cell    ──►     find the table                entries/detailed.tex\n  that prints data              apply `fields` renaming  ──►  entries/brief.tex\n  + `style: detailed`           hand off to a handler         entries/skills.tex\nYour extension contributes two things: a Quarto format (the document class, fonts, title block) and a directory of handlers for the listing styles that format supports."
+  },
+  {
+    "objectID": "creating-templates.html#anatomy-of-an-extension",
+    "href": "creating-templates.html#anatomy-of-an-extension",
+    "title": "Creating CV templates",
+    "section": "Anatomy of an extension",
+    "text": "Anatomy of an extension\n_extensions/awesomecv/\n├── _extension.yml\n├── awesome-cv.cls          # the document class\n├── awesome-cv.tex          # the pandoc template for the whole document\n├── fonts/\n├── _extensions/            # ← the embedded curriculum filters\n│   └── quarto-vitae/\n│       └── vitae-entries/\n└── entries/                # ← the listing handlers\n    ├── detailed.tex\n    ├── brief.tex\n    └── skills.tex\n\nEmbedding the filter\nQuarto will not resolve one extension from another by name alone, so a template distributed on its own has to carry its own copy of the filter. This is what quarto add --embed is for. From the root of your template repository:\nquarto add quarto-vitae/curriculum --embed awesomecv\nThe first argument is the curriculum repository; the --embed argument is the directory name of your extension under _extensions/. The copy lands inside your extension, as shown above, and filters: [vitae-entries] then resolves from anywhere in that tree. You do not need to reference it by path.\nCommit the embedded copy. It is part of your extension as distributed, and without it your format will not render for anyone else.\n\n\n\n\n\n\nImportantEmbed before you reference\n\n\n\nAdd the filter before you write filters: [vitae-entries] in your _extension.yml. Quarto validates the target extension while installing into it, so a reference to a filter that is not there yet makes the install fail with the very Failed to resolve referenced filter error that embedding is meant to cure. This affects only the first add; later updates are fine.\n\n\nTo pick up a new release of curriculum, re-embed with the same pair of arguments:\nquarto update quarto-vitae/curriculum --embed awesomecv\nThis is a clean replace rather than an overlay, so files dropped upstream are removed instead of lingering. Commit the result and cut a release of your template.\nNote what this means for the people using your template: updating your template refreshes the copy of curriculum inside it, so they need no separate step, and they have no way to update the filter themselves. A fix in curriculum reaches your users only once you re-embed and release. Nothing yet warns about a stale embedded copy, so keeping it current is your responsibility rather than theirs.\n\n\n_extension.yml\ntitle: Awesome CV\nauthor: Your Name\nversion: 0.1.0\nquarto-required: \"&gt;=1.7.0\"\ncontributes:\n  formats:\n    pdf:\n      pdf-engine: xelatex\n      template: awesome-cv.tex\n      format-resources:\n        - awesome-cv.cls\n        - fonts\n      filters:\n        - vitae-entries\n      df-print: kable\n      vitae:\n        styles: [detailed, brief, skills]\nThe vitae-specific parts:\n\nfilters: [vitae-entries]\n\nRuns the filter, resolved from the embedded copy added above. Without it, your .entries divs pass through untouched.\n\nvitae.styles\n\nThe listing styles your format implements. This is not how styles are discovered — the filter finds handlers by filename. It is how the filter tells a missing handler from a typo by the author. Declare detailed but ship no detailed.tex and you get a warning naming it a packaging bug; an author asking for style=\"timelin\" gets unknown style 'timelin'; this format provides detailed, brief, skills. Skip it and both fail quietly.\n\ndf-print: kable\n\nOptional but recommended. Lets a knitr cell print a data frame and still yield a table, so authors need no knitr::kable() call. It is a format option — Quarto ignores it as a cell option — so opting in is your job, not the author’s. It has no effect on the Jupyter engine, which renders a pandas DataFrame as a table regardless.\n\n\n\n\n\n\n\n\nNoteentries/ does not go in format-resources\n\n\n\nResources are copied next to the rendered document after pandoc runs, so a handler listed there resolves only on the second render — working locally forever while failing in CI. The filter reads _extensions/**/entries/ directly, so just leave the directory where it is."
+  },
+  {
+    "objectID": "creating-templates.html#entry-listing-handlers",
+    "href": "creating-templates.html#entry-listing-handlers",
+    "title": "Creating CV templates",
+    "section": "Entry listing handlers",
+    "text": "Entry listing handlers\nA handler is a pandoc template named after the style, with an extension matching the target format:\n\n\n\nTarget format\nHandler filename\n\n\n\n\nLaTeX / PDF\nentries/brief.tex\n\n\nTypst\nentries/brief.typ\n\n\nHTML\nentries/brief.html\n\n\nanything else\nentries/brief.md\n\n\n\nShip one per format you support. A format with no handler for a requested style falls back to a plain generic layout, so nothing breaks — it just looks unstyled.\n\nResolution order\nThe filter takes the first that exists:\n\nvitae.templates.&lt;style&gt; in document metadata — an author’s override\nentries/&lt;style&gt;.&lt;ext&gt; beside the document — a per-document tweak\n_extensions/**/entries/&lt;style&gt;.&lt;ext&gt; — your extension\nthe generic fallback shipped with vitae-entries\n\nAuthors can therefore override any handler you ship without forking your extension, and you should treat that as a feature.\n\n\nThe template context\nTwo variables are in scope:\n\nentries\n\nThe listing, one item per row of the author’s data.\n\nstyle\n\nThe style name, useful when several handlers share an include.\n\n\nEach entry’s keys are the column names of the author’s table, after any fields renaming. There is no fixed schema — the filter has no vocabulary of its own, so a column named grade is available as $entries.grade$ with no configuration anywhere.\nA minimal handler:\n$for(entries)$\n\\cventry{$entries.what$}{$entries.with$}{$entries.where$}{$entries.when$}{}\n$endfor$\n\n\nFour behaviours worth knowing\nMissing fields are empty, not errors. An undefined variable renders as the empty string, $if()$ on it is false, and $for()$ over it iterates zero times. You do not need to guard against columns the author omitted.\nA field may be a string or a list. A grid-table cell containing a bullet list, several columns merged with {why: [a, b]}, or collapse all produce lists. $for()$ handles both — it iterates a plain string exactly once — so looping is always safe:\n$if(entries.why)$\\begin{cvitems}\n$for(entries.why)$  \\item $entries.why$\n$endfor$\\end{cvitems}$endif$\nValues are already rendered and escaped. The filter converts each cell through pandoc into your target format, so **bold** arrives as \\textbf{bold} and 100% as 100\\%. Do not escape again, and do not wrap values in anything that would re-interpret them.\nUse $sep$ for separators, rather than emitting a trailing comma:\n$for(entries.why)$$entries.why$$sep$, $endfor$\nComments are $-- like this and are worth using — handlers are read by people adapting them.\n\n\nA worked example\nAwesome CV’s \\cvhonor has a fixed-width, right-aligned location column that suits short values only. Its brief handler prefers where, falling back to with:\n$-- \\cvhonor{&lt;position&gt;}{&lt;title&gt;}{&lt;location&gt;}{&lt;date&gt;}\n\\begin{cvhonors}\n$for(entries)$\n  \\cvhonor{}{$entries.what$}{$if(entries.where)$$entries.where$$else$$entries.with$$endif$}{$entries.when$}\n$endfor$\n\\end{cvhonors}\nThis is the intended way to handle a design that does not map cleanly onto the conventional fields: decide it in the handler, where the constraint actually lives, rather than asking authors to reshape their data per template."
+  },
+  {
+    "objectID": "creating-templates.html#conventional-fields",
+    "href": "creating-templates.html#conventional-fields",
+    "title": "Creating CV templates",
+    "section": "Conventional fields",
+    "text": "Conventional fields\nThe filter implements no field names. These five are a convention among template authors, and that is precisely where their value lies: an author’s table can feed a LaTeX CV and a Typst one, or move between designs, without being rewritten. Honour them where they make sense.\n\n\n\n\n\n\n\n\nField\nMeaning\nTypical content\n\n\n\n\nwhat\nthe thing itself\ndegree, job title, award, skill group\n\n\nwhen\nwhen it happened\n2018–2022, 1903\n\n\nwith\nthe associated body\nuniversity, employer, funder\n\n\nwhere\nthe place\ncity, country\n\n\nwhy\nelaboration\nachievements, description — often a list\n\n\n\nThey are deliberately semantic-free so one vocabulary covers education, employment, awards and service alike. what and when are near-universal; support them in every handler. why should be looped, not printed, since it is so often a list.\nAdding fields of your own is fine and needs no permission — a column reaches your template under its own name. Prefer a new name over overloading an existing one: if your design shows a grade, take $entries.grade$ rather than expecting authors to smuggle it through where."
+  },
+  {
+    "objectID": "creating-templates.html#naming-styles",
+    "href": "creating-templates.html#naming-styles",
+    "title": "Creating CV templates",
+    "section": "Naming styles",
+    "text": "Naming styles\nName a style for its shape, not for the section it happens to suit.\ndetailed, brief and skills describe layouts. education and employment would describe sections, which is a mistake: the same layout serves education, employment and service, while one CV’s education section may want a different shape from another’s. Sections are the author’s business; shapes are yours.\nReuse these names where the shape matches, so authors can switch designs without editing every div:\n\ndetailed\n\nA multi-line entry with a heading, subheading, date, place, and a bulleted elaboration. The workhorse.\n\nbrief\n\nOne line per entry. Titles, dates, and little else.\n\nskills\n\nTwo columns — a category and its members.\n\n\nIntroduce a new name only when the shape is genuinely new (publications, timeline), and declare it in vitae.styles so authors get a useful error rather than an unstyled fallback."
+  },
+  {
+    "objectID": "creating-templates.html#what-authors-can-hand-you",
+    "href": "creating-templates.html#what-authors-can-hand-you",
+    "title": "Creating CV templates",
+    "section": "What authors can hand you",
+    "text": "What authors can hand you\nWorth knowing, since it determines what reaches your handler:\n\n\n\n\n\n\n\nOption\nEffect\n\n\n\n\nstyle\nwhich handler to use (default detailed)\n\n\nfields\nrename columns, {what: Degree}; the default is the identity\n\n\ncollapse\nmerge consecutive rows differing only in the named column\n\n\ninput\nread printed data instead of a rendered table (csv)\n\n\nas\nmarkdown to re-parse your output, useful for HTML handlers"
+  },
+  {
+    "objectID": "creating-templates.html#getting-listed-on-this-site",
+    "href": "creating-templates.html#getting-listed-on-this-site",
+    "title": "Creating CV templates",
+    "section": "Getting listed on this site",
+    "text": "Getting listed on this site\nThe templates page is generated automatically, not maintained by hand. A repository is picked up as a template if it has, at its root:\n\na template.qmd — the starting document quarto use template creates\na preview/ directory of PNG, JPEG, SVG or WebP images\n\nAny repository in the quarto-vitae GitHub org meeting both conditions appears automatically, using the repo’s description, its README’s first heading as the title, and the images in preview/. Templates hosted elsewhere can be added by listing owner/repo in this site’s templates.yml — open a pull request there."
+  },
+  {
+    "objectID": "creating-templates.html#checklist",
+    "href": "creating-templates.html#checklist",
+    "title": "Creating CV templates",
+    "section": "Checklist",
+    "text": "Checklist\n\ncurriculum embedded with quarto add --embed, and committed\nfilters: [vitae-entries] in the format\na handler per style, per target format, in entries/\nentries/ not in format-resources\nvitae.styles lists exactly what you ship\ndf-print: kable if you expect knitr authors\nhandlers loop why rather than printing it\nhandlers do no escaping of their own\nrendered from a clean checkout — the resource-timing trap above hides itself on any repeat render"
   },
   {
     "objectID": "using-templates.html",
@@ -84,59 +147,24 @@
     "text": "Troubleshooting\n\nproduced no table, so no entries were rendered\n\nThe engine printed your object verbatim. Use input: csv, or convert it yourself with knitr::kable() or .to_markdown().\n\nunknown style 'x'; this format provides …\n\nA typo, or a style your template does not implement. The listed names are what it supports.\n\ncould not parse fields '…'\n\nfields needs a mapping in braces: {what: Degree}, not what=Degree.\n\nignoring unknown attribute 'x' on .entries div\n\nA misspelled option name. Check it against the table above.\n\n\nEntries render but a column is missing. The template only shows the fields it knows about. Check the column reached it under the right name — an unrenamed Degree stays Degree, and a template looking for what will not find it."
   },
   {
-    "objectID": "creating-templates.html",
-    "href": "creating-templates.html",
-    "title": "Creating CV templates",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Quarto Vitae",
     "section": "",
-    "text": "A CV template is an ordinary Quarto format extension that additionally ships a set of entry listing handlers — small pandoc templates describing how one section of a CV should look. The vitae-entries filter does everything else: finding the data, renaming columns, and calling your handler once per listing.\nThis means adding a new CV design requires no Lua and no changes to the filter. If you can write the LaTeX or Typst for one entry, you can ship a template."
+    "text": "Quarto extensions for writing CVs and résumés.\n\n\nPopulate your CV with entries drawn from a spreadsheet, script, or database.\n\n\nBrowse templates\nWriting a CV"
   },
   {
-    "objectID": "creating-templates.html#how-the-pieces-fit",
-    "href": "creating-templates.html#how-the-pieces-fit",
-    "title": "Creating CV templates",
-    "section": "How the pieces fit",
-    "text": "How the pieces fit\n  author writes                 vitae-entries filter          your template\n  ─────────────                 ────────────────────          ─────────────\n  a table, or a cell    ──►     find the table                entries/detailed.tex\n  that prints data              apply `fields` renaming  ──►  entries/brief.tex\n  + `style: detailed`           hand off to a handler         entries/skills.tex\nYour extension contributes two things: a Quarto format (the document class, fonts, title block) and a directory of handlers for the listing styles that format supports."
+    "objectID": "index.html#data-driven-cvs",
+    "href": "index.html#data-driven-cvs",
+    "title": "Quarto Vitae",
+    "section": "Data-driven CVs",
+    "text": "Data-driven CVs"
   },
   {
-    "objectID": "creating-templates.html#anatomy-of-an-extension",
-    "href": "creating-templates.html#anatomy-of-an-extension",
-    "title": "Creating CV templates",
-    "section": "Anatomy of an extension",
-    "text": "Anatomy of an extension\n_extensions/awesomecv/\n├── _extension.yml\n├── awesome-cv.cls          # the document class\n├── awesome-cv.tex          # the pandoc template for the whole document\n├── fonts/\n├── _extensions/            # ← the embedded curriculum filters\n│   └── quarto-vitae/\n│       └── vitae-entries/\n└── entries/                # ← the listing handlers\n    ├── detailed.tex\n    ├── brief.tex\n    └── skills.tex\n\nEmbedding the filter\nQuarto will not resolve one extension from another by name alone, so a template distributed on its own has to carry its own copy of the filter. This is what quarto add --embed is for. From the root of your template repository:\nquarto add quarto-vitae/curriculum --embed awesomecv\nThe first argument is the curriculum repository; the --embed argument is the directory name of your extension under _extensions/. The copy lands inside your extension, as shown above, and filters: [vitae-entries] then resolves from anywhere in that tree. You do not need to reference it by path.\nCommit the embedded copy. It is part of your extension as distributed, and without it your format will not render for anyone else.\n\n\n\n\n\n\nImportantEmbed before you reference\n\n\n\nAdd the filter before you write filters: [vitae-entries] in your _extension.yml. Quarto validates the target extension while installing into it, so a reference to a filter that is not there yet makes the install fail with the very Failed to resolve referenced filter error that embedding is meant to cure. This affects only the first add; later updates are fine.\n\n\nTo pick up a new release of curriculum, re-embed with the same pair of arguments:\nquarto update quarto-vitae/curriculum --embed awesomecv\nThis is a clean replace rather than an overlay, so files dropped upstream are removed instead of lingering. Commit the result and cut a release of your template.\nNote what this means for the people using your template: updating your template refreshes the copy of curriculum inside it, so they need no separate step, and they have no way to update the filter themselves. A fix in curriculum reaches your users only once you re-embed and release. Nothing yet warns about a stale embedded copy, so keeping it current is your responsibility rather than theirs.\n\n\n_extension.yml\ntitle: Awesome CV\nauthor: Your Name\nversion: 0.1.0\nquarto-required: \"&gt;=1.7.0\"\ncontributes:\n  formats:\n    pdf:\n      pdf-engine: xelatex\n      template: awesome-cv.tex\n      format-resources:\n        - awesome-cv.cls\n        - fonts\n      filters:\n        - vitae-entries\n      df-print: kable\n      vitae:\n        styles: [detailed, brief, skills]\nThe vitae-specific parts:\n\nfilters: [vitae-entries]\n\nRuns the filter, resolved from the embedded copy added above. Without it, your .entries divs pass through untouched.\n\nvitae.styles\n\nThe listing styles your format implements. This is not how styles are discovered — the filter finds handlers by filename. It is how the filter tells a missing handler from a typo by the author. Declare detailed but ship no detailed.tex and you get a warning naming it a packaging bug; an author asking for style=\"timelin\" gets unknown style 'timelin'; this format   provides detailed, brief, skills. Skip it and both fail quietly.\n\ndf-print: kable\n\nOptional but recommended. Lets a knitr cell print a data frame and still yield a table, so authors need no knitr::kable() call. It is a format option — Quarto ignores it as a cell option — so opting in is your job, not the author’s. It has no effect on the Jupyter engine, which renders a pandas DataFrame as a table regardless.\n\n\n\n\n\n\n\n\nNoteentries/ does not go in format-resources\n\n\n\nResources are copied next to the rendered document after pandoc runs, so a handler listed there resolves only on the second render — working locally forever while failing in CI. The filter reads _extensions/**/entries/ directly, so just leave the directory where it is."
-  },
-  {
-    "objectID": "creating-templates.html#entry-listing-handlers",
-    "href": "creating-templates.html#entry-listing-handlers",
-    "title": "Creating CV templates",
-    "section": "Entry listing handlers",
-    "text": "Entry listing handlers\nA handler is a pandoc template named after the style, with an extension matching the target format:\n\n\n\nTarget format\nHandler filename\n\n\n\n\nLaTeX / PDF\nentries/brief.tex\n\n\nTypst\nentries/brief.typ\n\n\nHTML\nentries/brief.html\n\n\nanything else\nentries/brief.md\n\n\n\nShip one per format you support. A format with no handler for a requested style falls back to a plain generic layout, so nothing breaks — it just looks unstyled.\n\nResolution order\nThe filter takes the first that exists:\n\nvitae.templates.&lt;style&gt; in document metadata — an author’s override\nentries/&lt;style&gt;.&lt;ext&gt; beside the document — a per-document tweak\n_extensions/**/entries/&lt;style&gt;.&lt;ext&gt; — your extension\nthe generic fallback shipped with vitae-entries\n\nAuthors can therefore override any handler you ship without forking your extension, and you should treat that as a feature.\n\n\nThe template context\nTwo variables are in scope:\n\nentries\n\nThe listing, one item per row of the author’s data.\n\nstyle\n\nThe style name, useful when several handlers share an include.\n\n\nEach entry’s keys are the column names of the author’s table, after any fields renaming. There is no fixed schema — the filter has no vocabulary of its own, so a column named grade is available as $entries.grade$ with no configuration anywhere.\nA minimal handler:\n$for(entries)$\n\\cventry{$entries.what$}{$entries.with$}{$entries.where$}{$entries.when$}{}\n$endfor$\n\n\nFour behaviours worth knowing\nMissing fields are empty, not errors. An undefined variable renders as the empty string, $if()$ on it is false, and $for()$ over it iterates zero times. You do not need to guard against columns the author omitted.\nA field may be a string or a list. A grid-table cell containing a bullet list, several columns merged with {why: [a, b]}, or collapse all produce lists. $for()$ handles both — it iterates a plain string exactly once — so looping is always safe:\n$if(entries.why)$\\begin{cvitems}\n$for(entries.why)$  \\item $entries.why$\n$endfor$\\end{cvitems}$endif$\nValues are already rendered and escaped. The filter converts each cell through pandoc into your target format, so **bold** arrives as \\textbf{bold} and 100% as 100\\%. Do not escape again, and do not wrap values in anything that would re-interpret them.\nUse $sep$ for separators, rather than emitting a trailing comma:\n$for(entries.why)$$entries.why$$sep$, $endfor$\nComments are $-- like this and are worth using — handlers are read by people adapting them.\n\n\nA worked example\nAwesome CV’s \\cvhonor has a fixed-width, right-aligned location column that suits short values only. Its brief handler prefers where, falling back to with:\n$-- \\cvhonor{&lt;position&gt;}{&lt;title&gt;}{&lt;location&gt;}{&lt;date&gt;}\n\\begin{cvhonors}\n$for(entries)$\n  \\cvhonor{}{$entries.what$}{$if(entries.where)$$entries.where$$else$$entries.with$$endif$}{$entries.when$}\n$endfor$\n\\end{cvhonors}\nThis is the intended way to handle a design that does not map cleanly onto the conventional fields: decide it in the handler, where the constraint actually lives, rather than asking authors to reshape their data per template."
-  },
-  {
-    "objectID": "creating-templates.html#conventional-fields",
-    "href": "creating-templates.html#conventional-fields",
-    "title": "Creating CV templates",
-    "section": "Conventional fields",
-    "text": "Conventional fields\nThe filter implements no field names. These five are a convention among template authors, and that is precisely where their value lies: an author’s table can feed a LaTeX CV and a Typst one, or move between designs, without being rewritten. Honour them where they make sense.\n\n\n\n\n\n\n\n\nField\nMeaning\nTypical content\n\n\n\n\nwhat\nthe thing itself\ndegree, job title, award, skill group\n\n\nwhen\nwhen it happened\n2018–2022, 1903\n\n\nwith\nthe associated body\nuniversity, employer, funder\n\n\nwhere\nthe place\ncity, country\n\n\nwhy\nelaboration\nachievements, description — often a list\n\n\n\nThey are deliberately semantic-free so one vocabulary covers education, employment, awards and service alike. what and when are near-universal; support them in every handler. why should be looped, not printed, since it is so often a list.\nAdding fields of your own is fine and needs no permission — a column reaches your template under its own name. Prefer a new name over overloading an existing one: if your design shows a grade, take $entries.grade$ rather than expecting authors to smuggle it through where."
-  },
-  {
-    "objectID": "creating-templates.html#naming-styles",
-    "href": "creating-templates.html#naming-styles",
-    "title": "Creating CV templates",
-    "section": "Naming styles",
-    "text": "Naming styles\nName a style for its shape, not for the section it happens to suit.\ndetailed, brief and skills describe layouts. education and employment would describe sections, which is a mistake: the same layout serves education, employment and service, while one CV’s education section may want a different shape from another’s. Sections are the author’s business; shapes are yours.\nReuse these names where the shape matches, so authors can switch designs without editing every div:\n\ndetailed\n\nA multi-line entry with a heading, subheading, date, place, and a bulleted elaboration. The workhorse.\n\nbrief\n\nOne line per entry. Titles, dates, and little else.\n\nskills\n\nTwo columns — a category and its members.\n\n\nIntroduce a new name only when the shape is genuinely new (publications, timeline), and declare it in vitae.styles so authors get a useful error rather than an unstyled fallback."
-  },
-  {
-    "objectID": "creating-templates.html#what-authors-can-hand-you",
-    "href": "creating-templates.html#what-authors-can-hand-you",
-    "title": "Creating CV templates",
-    "section": "What authors can hand you",
-    "text": "What authors can hand you\nWorth knowing, since it determines what reaches your handler:\n\n\n\n\n\n\n\nOption\nEffect\n\n\n\n\nstyle\nwhich handler to use (default detailed)\n\n\nfields\nrename columns, {what: Degree}; the default is the identity\n\n\ncollapse\nmerge consecutive rows differing only in the named column\n\n\ninput\nread printed data instead of a rendered table (csv)\n\n\nas\nmarkdown to re-parse your output, useful for HTML handlers"
-  },
-  {
-    "objectID": "creating-templates.html#checklist",
-    "href": "creating-templates.html#checklist",
-    "title": "Creating CV templates",
-    "section": "Checklist",
-    "text": "Checklist\n\ncurriculum embedded with quarto add --embed, and committed\nfilters: [vitae-entries] in the format\na handler per style, per target format, in entries/\nentries/ not in format-resources\nvitae.styles lists exactly what you ship\ndf-print: kable if you expect knitr authors\nhandlers loop why rather than printing it\nhandlers do no escaping of their own\nrendered from a clean checkout — the resource-timing trap above hides itself on any repeat render"
+    "objectID": "index.html#pick-a-design-and-start-writing",
+    "href": "index.html#pick-a-design-and-start-writing",
+    "title": "Quarto Vitae",
+    "section": "Pick a design and start writing",
+    "text": "Pick a design and start writing"
   }
 ]

@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://quarto-vitae.github.io/index.html</loc>
-    <lastmod>2026-07-21T07:03:51.892Z</lastmod>
+    <loc>https://quarto-vitae.github.io/templates.html</loc>
+    <lastmod>2026-09-21T12:55:41.317Z</lastmod>
+  </url>
+  <url>
+    <loc>https://quarto-vitae.github.io/creating-templates.html</loc>
+    <lastmod>2026-09-21T12:56:05.865Z</lastmod>
   </url>
   <url>
     <loc>https://quarto-vitae.github.io/using-templates.html</loc>
     <lastmod>2026-07-19T13:08:51.496Z</lastmod>
   </url>
   <url>
-    <loc>https://quarto-vitae.github.io/creating-templates.html</loc>
-    <lastmod>2026-07-19T14:22:56.038Z</lastmod>
+    <loc>https://quarto-vitae.github.io/index.html</loc>
+    <lastmod>2026-09-24T00:27:47.242Z</lastmod>
   </url>
 </urlset>
