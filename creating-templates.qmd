@@ -294,6 +294,55 @@ Introduce a new name only when the shape is genuinely new (`publications`,
 `timeline`), and declare it in `vitae.styles` so authors get a useful error
 rather than an unstyled fallback.
 
+## Contact details
+
+The header of a CV is front matter, not a listing. Authors write it under
+`social`, the same way for every template, and the filter replaces it with a
+list in which every item has one shape. Your pandoc template loops over it; no
+extra filter is needed.
+
+| Field            | Example                         | Notes                                              |
+|------------------|---------------------------------|----------------------------------------------------|
+| `service`        | `mastodon`, `custom`            |                                                    |
+| `is.<service>`   | `is.mastodon`                   | true for this item's service, for `$if$`           |
+| `title`          | `Mastodon`                      | the service's name, for alt text                   |
+| `icon`           | `mastodon`                      | a [Font Awesome 6](https://fontawesome.com/search?ic=free) name |
+| `url`            | `https://fosstodon.org/@mcurie` | absent when there is nothing to link               |
+| `label`          | `@mcurie@fosstodon.org`         | the display text                                   |
+| `handle`         | `@mcurie@fosstodon.org`         | recovered from a URL if one was given              |
+| `given.<field>`  | `given.icon`                    | true where the author set `url`, `label`, `icon` or `title` |
+
+Some services add parts, such as `user` and `instance` (mastodon) or `id` and
+`slug` (stackoverflow). Values arrive already rendered for the target format,
+so build links from `url`, never from `handle`, and do not escape anything.
+
+The whole contact line is one loop:
+
+```tex
+$for(social)$
+$if(social.url)$\href{$social.url$}{\faIcon{$social.icon$}~$social.label$}$else$\faIcon{$social.icon$}~$social.label$$endif$$sep$ | 
+$endfor$
+```
+
+Icons, links and labels are only defaults. Override them with pandoc
+conditionals, which is also how you pull an item out of the line to place it
+elsewhere:
+
+```tex
+$for(social)$
+$if(social.is.address)$
+\address{$social.label$}
+$else$
+\cvsocial{$if(social.given.icon)$\faIcon{$social.icon$}$elseif(social.is.github)$\faSquareGithub$else$\faIcon{$social.icon$}$endif$~$social.label$}
+$endif$
+$endfor$
+```
+
+Check `given.<field>` before substituting your own default, so an icon or
+label the author chose still wins. Pandoc's `$sep$` cannot know an item was
+skipped, so a template that moves items out of the loop should insert its own
+separators.
+
 ## What authors can hand you
 
 Worth knowing, since it determines what reaches your handler:
@@ -333,5 +382,6 @@ elsewhere can be added by listing `owner/repo` in this site's
 - [ ] `df-print: kable` if you expect knitr authors
 - [ ] handlers loop `why` rather than printing it
 - [ ] handlers do no escaping of their own
+- [ ] contact line loops `social`, and checks `given.<field>` before overriding
 - [ ] rendered from a **clean checkout** — the resource-timing trap above hides
       itself on any repeat render
