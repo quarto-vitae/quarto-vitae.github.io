@@ -171,7 +171,6 @@ document.querySelectorAll("[data-template-carousel]").forEach(function (c) {
   var paused = false, pos = 0, last = null;
   function setPaused(p) {
     paused = p;
-    track.classList.toggle("is-auto", !p);
     last = null;
     if (!p) pos = track.scrollLeft;
   }
@@ -193,6 +192,9 @@ document.querySelectorAll("[data-template-carousel]").forEach(function (c) {
   ["mouseleave", "focusout", "touchend"].forEach(function (e) {
     c.addEventListener(e, function () { setPaused(false); }, { passive: true });
   });
+  // Keep scroll snapping off for good: re-enabling it on pause would snap
+  // the track back to the nearest card edge.
+  track.classList.add("is-auto");
   setPaused(false);
   requestAnimationFrame(tick);
 });
