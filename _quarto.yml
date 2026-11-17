@@ -6,6 +6,9 @@ website:
   title: "Quarto Vitae"
   description: "Quarto extensions for writing CVs and résumés."
   site-url: "https://quarto-vitae.github.io"
+  # Writes llms.txt and a plain-markdown <page>.llms.md beside each page, which
+  # can carry agent-only content (`.content-visible when-format="llms-txt"`).
+  llms-txt: true
   repo-url: "https://github.com/quarto-vitae/quarto-vitae.github.io"
   repo-actions: [issue]
   open-graph:
