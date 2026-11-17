@@ -28,6 +28,8 @@ website:
         text: Templates
       - href: using-templates.qmd
         text: Writing a CV
+      - href: migration.qmd
+        text: Migrating from vitae
       - href: creating-templates.qmd
         text: Creating Templates
     right:

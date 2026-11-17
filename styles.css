@@ -69,6 +69,26 @@
   font-size: 0.95rem;
 }
 
+.landing-migrate {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+  font-size: 0.9rem;
+  color: var(--bs-secondary-color, #555555);
+}
+
+.landing-migrate p {
+  margin: 0;
+}
+
+.landing-migrate .btn {
+  border-radius: 0.2rem;
+  font-weight: 600;
+}
+
 .hero-link {
   color: var(--bs-body-color, #111111);
   text-decoration: underline;

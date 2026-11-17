@@ -23,6 +23,12 @@ Populate your CV with entries drawn from a spreadsheet, script, or database.
 
 [Writing a CV](using-templates.qmd){.hero-link}
 :::
+
+::: {.landing-migrate}
+Already using vitae with R Markdown?
+
+[Migrate to Quarto vitae](migration.qmd){.btn .btn-outline-primary .btn-sm role="button"}
+:::
 :::
 
 ::: {.landing-fundamentals}
