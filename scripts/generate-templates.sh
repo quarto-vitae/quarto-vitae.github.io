@@ -108,34 +108,60 @@ echo "generate-templates.sh: writing $OUT ($n templates)" >&2
     echo "authenticated and that templates.yml points at valid repos."
     echo ":::"
   else
-    echo '::: {.template-grid}'
-    echo
+    echo '```{=html}'
+    echo '<div class="template-carousel" data-template-carousel>'
+    echo '<button class="carousel-btn carousel-prev" type="button" aria-label="Previous template">&#8249;</button>'
+    echo '<div class="carousel-track" tabindex="0">'
 
-    jq -c '.[]' <<<"$cards" | while IFS= read -r card; do
-      title=$(jq -r '.title' <<<"$card")
-      repo=$(jq -r '.repo' <<<"$card")
-      desc=$(jq -r '.description' <<<"$card")
-      url=$(jq -r '.url' <<<"$card")
-      official=$(jq -r '.official' <<<"$card")
-      image=$(jq -r '.images[0] // empty' <<<"$card")
+    # One slide per preview image, so templates with several styles (e.g.
+    # latexcv) show each style as its own slide.
+    jq -c '.[] | . as $t | (.images | if length == 0 then [null] else . end) | to_entries[] | {t: $t, image: .value}' <<<"$cards" \
+    | while IFS= read -r slide; do
+      title=$(jq -r '.t.title' <<<"$slide" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/"/\&quot;/g')
+      desc=$(jq -r '.t.description' <<<"$slide" | sed 's/&/\&amp;/g; s/</\&lt;/g; s/"/\&quot;/g')
+      url=$(jq -r '.t.url' <<<"$slide")
+      official=$(jq -r '.t.official' <<<"$slide")
+      nimg=$(jq -r '.t.images | length' <<<"$slide")
+      image=$(jq -r '.image // empty' <<<"$slide")
 
-      echo '::: {.template-card}'
-      if [[ -n "$image" ]]; then
-        echo "<a href=\"${url}\"><img class=\"template-preview\" src=\"${image}\" alt=\"${title} preview\"></a>"
+      style=""
+      if [[ "$nimg" -gt 1 && -n "$image" ]]; then
+        style=$(basename "$image"); style="${style%.*}"
+        style=$(printf '%s' "$style" | sed -E 's/[-_]+/ /g' | awk '{print (length($0)<=2) ? toupper($0) : toupper(substr($0,1,1)) substr($0,2)}')
       fi
-      echo
-      if [[ "$official" == "true" ]]; then
-        echo "#### [${title}](${url})"
-      else
-        echo "#### [${title}](${url}) [community]{.template-badge}"
-      fi
-      echo
-      [[ -n "$desc" ]] && echo "$desc"
-      echo
-      echo ':::'
-      echo
+
+      echo '<figure class="carousel-slide">'
+      [[ -n "$image" ]] && echo "<a href=\"${url}\"><img class=\"template-preview\" src=\"${image}\" alt=\"${title}${style:+ ($style)} preview\" loading=\"lazy\"></a>"
+      echo '<figcaption>'
+      echo -n "<h4><a href=\"${url}\">${title}</a>"
+      [[ "$official" != "true" ]] && echo -n ' <span class="template-badge">community</span>'
+      echo '</h4>'
+      [[ -n "$style" ]] && echo "<p class=\"carousel-style\">${style}</p>"
+      [[ -n "$desc" ]] && echo "<p>${desc}</p>"
+      echo '</figcaption>'
+      echo '</figure>'
     done
 
-    echo ':::'
+    echo '</div>'
+    echo '<button class="carousel-btn carousel-next" type="button" aria-label="Next template">&#8250;</button>'
+    echo '</div>'
+    cat <<'JS'
+<script>
+document.querySelectorAll("[data-template-carousel]").forEach(function (c) {
+  var track = c.querySelector(".carousel-track");
+  function step(dir) {
+    var slide = track.querySelector(".carousel-slide");
+    var w = slide.getBoundingClientRect().width + 24;
+    var atEnd = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+    if (dir > 0 && atEnd) track.scrollTo({ left: 0, behavior: "smooth" });
+    else if (dir < 0 && track.scrollLeft <= 4) track.scrollTo({ left: track.scrollWidth, behavior: "smooth" });
+    else track.scrollBy({ left: dir * w, behavior: "smooth" });
+  }
+  c.querySelector(".carousel-prev").addEventListener("click", function () { step(-1); });
+  c.querySelector(".carousel-next").addEventListener("click", function () { step(1); });
+});
+</script>
+JS
+    echo '```'
   fi
 } >"$OUT"
