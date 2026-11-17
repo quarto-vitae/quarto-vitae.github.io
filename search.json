@@ -4,7 +4,7 @@
     "href": "templates.html",
     "title": "Templates",
     "section": "",
-    "text": "Every template below is a Quarto format extension: install it, set format: in your document, and write your CV as described in Writing a CV. This list is generated automatically from the quarto-vitae GitHub org and a small list of community templates — see Creating CV templates if you’d like to add your own.\n\n\n\n\n\nAwesome CV\nA Quarto vitae template for Awesome-CV\n\n\n\n\n\nHyndman CV\nA Quarto vitae template created and used by Rob Hyndman\n\n\n\n\n\nlatexcv\nA Quarto vitae template for latexcv"
+    "text": "Every template below is a Quarto format extension: install it, set format: in your document, and write your CV as described in Writing a CV. This list is generated automatically from the quarto-vitae GitHub org and a small list of community templates — see Creating CV templates if you’d like to add your own.\n\n\n‹\n\n\n\n\nAwesome CV\nCoverletter\nA Quarto vitae template for Awesome-CV\n\n\n\n\n\nAwesome CV\nCV\nA Quarto vitae template for Awesome-CV\n\n\n\n\n\nHyndman CV\nA Quarto vitae template created and used by Rob Hyndman\n\n\n\n\n\nlatexcv\nClassic\nA Quarto vitae template for latexcv\n\n\n\n\n\nlatexcv\nMinimalistic\nA Quarto vitae template for latexcv\n\n\n\n\n\nlatexcv\nModern\nA Quarto vitae template for latexcv\n\n\n\n\n\nlatexcv\nRows\nA Quarto vitae template for latexcv\n\n\n\n\n\nlatexcv\nSidebar\nA Quarto vitae template for latexcv\n\n\n\n\n\nlatexcv\nSidebarleft\nA Quarto vitae template for latexcv\n\n\n\n\n\nlatexcv\nTwocolumn\nA Quarto vitae template for latexcv\n\n\n\n›"
   },
   {
     "objectID": "creating-templates.html",
