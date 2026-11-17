@@ -1,5 +1,7 @@
 ---
 title: ""
+pagetitle: "Quarto Vitae: data-driven CVs and résumés"
+description: "Write CVs and résumés in Quarto with entries drawn from a spreadsheet, script, or database. Browse templates in multiple styles and render to PDF or HTML."
 page-layout: full
 toc: false
 engine: markdown
