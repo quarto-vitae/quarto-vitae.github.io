@@ -203,6 +203,7 @@ ul.task-list li input[type="checkbox"] {
 <a href="https://github.com/quarto-vitae/hyndman"><img class="template-preview figure-img" src="https://raw.githubusercontent.com/quarto-vitae/hyndman/main/preview/hyndmancv.png" alt="Hyndman CV preview" loading="lazy"></a>
 <figcaption>
 <h4 class="anchored"><a href="https://github.com/quarto-vitae/hyndman">Hyndman CV</a></h4>
+<p class="carousel-style">CV</p>
 <p>A Quarto vitae template created and used by Rob Hyndman</p>
 </figcaption>
 </figure>
@@ -278,6 +279,42 @@ document.querySelectorAll("[data-template-carousel]").forEach(function (c) {
   }
   c.querySelector(".carousel-prev").addEventListener("click", function () { step(-1); });
   c.querySelector(".carousel-next").addEventListener("click", function () { step(1); });
+
+  // Slow continuous auto-scroll on the landing page only. Pauses while the
+  // pointer, focus or a touch is on the carousel, and is skipped entirely
+  // for people who prefer reduced motion.
+  if (!c.closest(".landing-templates")) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var SPEED = 30; // pixels per second
+  var paused = false, pos = 0, last = null;
+  function setPaused(p) {
+    paused = p;
+    last = null;
+    if (!p) pos = track.scrollLeft;
+  }
+  function tick(t) {
+    if (!paused) {
+      if (last !== null) {
+        pos += SPEED * (t - last) / 1000;
+        var max = track.scrollWidth - track.clientWidth;
+        if (pos >= max) pos = 0;
+        track.scrollLeft = pos;
+      }
+      last = t;
+    }
+    requestAnimationFrame(tick);
+  }
+  ["mouseenter", "focusin", "touchstart"].forEach(function (e) {
+    c.addEventListener(e, function () { setPaused(true); }, { passive: true });
+  });
+  ["mouseleave", "focusout", "touchend"].forEach(function (e) {
+    c.addEventListener(e, function () { setPaused(false); }, { passive: true });
+  });
+  // Keep scroll snapping off for good: re-enabling it on pause would snap
+  // the track back to the nearest card edge.
+  track.classList.add("is-auto");
+  setPaused(false);
+  requestAnimationFrame(tick);
 });
 </script>
 

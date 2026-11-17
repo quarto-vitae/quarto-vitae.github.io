@@ -26,6 +26,8 @@ A Quarto vitae template for Awesome-CV
 
 #### [Hyndman CV](https://github.com/quarto-vitae/hyndman)
 
+CV
+
 A Quarto vitae template created and used by Rob Hyndman
 
 [![latexcv (Classic) preview](https://raw.githubusercontent.com/quarto-vitae/latexcv/main/preview/classic.png)](https://github.com/quarto-vitae/latexcv)

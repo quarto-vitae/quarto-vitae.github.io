@@ -359,6 +359,11 @@
   padding: 0.25rem 0.25rem 1rem;
 }
 
+.carousel-track.is-auto {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+}
+
 .carousel-slide {
   position: relative;
   flex: 0 0 min(280px, 80%);
