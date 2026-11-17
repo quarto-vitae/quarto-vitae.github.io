@@ -164,9 +164,11 @@ social:
 ::: {.fundamentals-preview}
 [Rendered]{.template-badge}
 
-::: {.cv-bib}
-✉ marie.curie@example.org &nbsp;·&nbsp; github.com/mcurie
-&nbsp;·&nbsp; @mcurie@fosstodon.org &nbsp;·&nbsp; 0000-0001-2345-6789
+::: {.cv-bib .cv-social}
+[<i class="bi bi-envelope-fill"></i> marie.curie@example.org](mailto:marie.curie@example.org)
+[<i class="bi bi-github"></i> mcurie](https://github.com/mcurie)
+[<i class="bi bi-mastodon"></i> \@mcurie\@fosstodon.org](https://fosstodon.org/@mcurie)
+[<span class="orcid-icon">iD</span> 0000-0001-2345-6789](https://orcid.org/0000-0001-2345-6789)
 :::
 :::
 :::
