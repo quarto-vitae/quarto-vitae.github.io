@@ -253,6 +253,31 @@ them. Useful when a section has natural groupings:
 
 The same applies to a code cell that emits several tables in a loop.
 
+## Contact details and profiles
+
+Your address, email and online profiles are not a listing; they live in the
+front matter under `social`, written as `service: handle`. Every template reads
+the same key, so you can switch designs without changing it.
+
+```yaml
+social:
+  - address: "Paris, France"
+  - email: marie.curie@example.org
+  - github: mcurie
+  - mastodon: "@mcurie@fosstodon.org"
+  - linkedin: {handle: mcurie, label: "Marie Curie"}
+  - custom:
+      - icon: flask
+        text: "[Curie Laboratory](https://curie.fr)"
+```
+
+Write the handle the way the service does, or paste a full profile URL. A map
+overrides any of `handle`, `url`, `label`, `icon` or `title`, and `custom`
+covers anything else with an icon and markdown `text`. Services include
+`email`, `phone`, `website`, `orcid`, `googlescholar`, `github`, `gitlab`,
+`linkedin`, `mastodon`, `bluesky` and more; an unknown name warns with the
+closest match. Use a list (as above) to keep your order.
+
 ## Overriding a template
 
 To change how one style looks without leaving your document, point it at your own

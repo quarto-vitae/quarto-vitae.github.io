@@ -137,6 +137,36 @@ contained in pitchblende. *Comptes Rendus*, 127, 175-178.
 :::
 :::
 
+Contact details and profiles are front matter, written as `service: handle`.
+Every template reads them the same way, so switching designs never touches them.
+
+::: {.fundamentals-row}
+::: {.fundamentals-code}
+**Share your socials**
+
+```yaml
+social:
+  - email: marie.curie@example.org
+  - github: mcurie
+  - mastodon: "@mcurie@fosstodon.org"
+  - orcid: 0000-0001-2345-6789
+```
+:::
+
+::: {.fundamentals-arrow aria-hidden="true"}
+&rarr;
+:::
+
+::: {.fundamentals-preview}
+[Rendered]{.template-badge}
+
+::: {.cv-bib}
+✉ marie.curie@example.org &nbsp;·&nbsp; github.com/mcurie
+&nbsp;·&nbsp; @mcurie@fosstodon.org &nbsp;·&nbsp; 0000-0001-2345-6789
+:::
+:::
+:::
+
 [Learn how to write a CV with vitae &rarr;](using-templates.qmd){.hero-link}
 :::
 
