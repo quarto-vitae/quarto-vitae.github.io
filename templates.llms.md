@@ -6,6 +6,14 @@ Every template below is a Quarto format extension: install it, set `format:` in 
 
 ‹
 
+[![AltaCV preview](https://raw.githubusercontent.com/quarto-vitae/altacv/main/preview/altacv.png)](https://github.com/quarto-vitae/altacv)
+
+#### [AltaCV](https://github.com/quarto-vitae/altacv)
+
+CV
+
+A Quarto vitae template for AltaCV design
+
 [![Awesome CV (Coverletter) preview](https://raw.githubusercontent.com/quarto-vitae/awesomecv/main/preview/coverletter.png)](https://github.com/quarto-vitae/awesomecv)
 
 #### [Awesome CV](https://github.com/quarto-vitae/awesomecv)
@@ -29,6 +37,14 @@ A Quarto vitae template for Awesome-CV
 CV
 
 A Quarto vitae template created and used by Rob Hyndman
+
+[![Jarocki CV preview](https://raw.githubusercontent.com/quarto-vitae/jarocki/main/preview/jarocki.png)](https://github.com/quarto-vitae/jarocki)
+
+#### [Jarocki CV](https://github.com/quarto-vitae/jarocki)
+
+CV
+
+A Quarto vitae template for BartoszJarocki's CV design
 
 [![latexcv (Classic) preview](https://raw.githubusercontent.com/quarto-vitae/latexcv/main/preview/classic.png)](https://github.com/quarto-vitae/latexcv)
 
@@ -85,5 +101,29 @@ A Quarto vitae template for latexcv
 Twocolumn
 
 A Quarto vitae template for latexcv
+
+[![LuxSleek CV preview](https://raw.githubusercontent.com/quarto-vitae/luxsleek/main/preview/cv.png)](https://github.com/quarto-vitae/luxsleek)
+
+#### [LuxSleek CV](https://github.com/quarto-vitae/luxsleek)
+
+CV
+
+A Quarto vitae template for the luxsleek CV design
+
+[![Résumé preview](https://raw.githubusercontent.com/quarto-vitae/billryan/main/preview/cv.png)](https://github.com/quarto-vitae/billryan)
+
+#### [Résumé](https://github.com/quarto-vitae/billryan)
+
+CV
+
+A Quarto vitae template for billryan's CV design
+
+[![Sourabh's Resume preview](https://raw.githubusercontent.com/quarto-vitae/sb2nov/main/preview/cv.png)](https://github.com/quarto-vitae/sb2nov)
+
+#### [Sourabh's Resume](https://github.com/quarto-vitae/sb2nov)
+
+CV
+
+A Quarto vitae template for sb2nov's CV design
 
 ›
