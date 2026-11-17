@@ -29,7 +29,7 @@ website:
       - href: using-templates.qmd
         text: Writing a CV
       - href: migration.qmd
-        text: Migrating from vitae
+        text: Migrating from R Markdown
       - href: creating-templates.qmd
         text: Creating Templates
     right:
