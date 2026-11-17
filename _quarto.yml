@@ -44,3 +44,10 @@ format:
       - brand
     css: styles.css
     toc: true
+
+filters:
+  # Agent-only checklists survive the llms.txt markdown conversion.
+  # Runs before Quarto parses `.content-visible` divs, whose agent-only
+  # content user filters would otherwise never see.
+  - at: pre-ast
+    path: filters/llms-task-lists.lua
