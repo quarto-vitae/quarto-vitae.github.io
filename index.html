@@ -162,6 +162,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Writing a CV</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./migration.html"> 
+<span class="menu-text">Migrating from R Markdown</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./creating-templates.html"> 
 <span class="menu-text">Creating Templates</span></a>
   </li>  
@@ -203,6 +207,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="landing-links">
 <p><a href="./templates.html" class="btn btn-primary" role="button">Browse templates</a></p>
 <p><a href="./using-templates.html" class="hero-link">Writing a CV</a></p>
+</div>
+<div class="landing-migrate">
+<p><a href="./migration.html" class="hero-link">Already using vitae with R Markdown? Migrate to Quarto vitae&nbsp;→</a></p>
 </div>
 </section>
 </div>
@@ -296,6 +303,26 @@ Discovered polonium and radium
 <p><span class="template-badge">Rendered</span></p>
 <div class="cv-bib">
 <p>Curie, M., &amp; Curie, P. (1898). On a new, strongly radioactive substance contained in pitchblende. <em>Comptes Rendus</em>, 127, 175-178.</p>
+</div>
+</div>
+</div>
+<p>Contact details and profiles are front matter, written as <code>service: handle</code>. Every template reads them the same way, so switching designs never touches them.</p>
+<div class="fundamentals-row">
+<div class="fundamentals-code">
+<p><strong>Share your socials</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">social</span><span class="kw">:</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">email</span><span class="kw">:</span><span class="at"> marie.curie@example.org</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">github</span><span class="kw">:</span><span class="at"> mcurie</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">mastodon</span><span class="kw">:</span><span class="at"> </span><span class="st">"@mcurie@fosstodon.org"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">orcid</span><span class="kw">:</span><span class="at"> 0000-0001-2345-6789</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fundamentals-arrow" aria-hidden="true">
+<p>→</p>
+</div>
+<div class="fundamentals-preview">
+<p><span class="template-badge">Rendered</span></p>
+<div class="cv-bib">
+<p>✉ marie.curie@example.org &nbsp;·&nbsp; github.com/mcurie &nbsp;·&nbsp; <span class="citation" data-cites="mcurie">@mcurie</span><span class="citation" data-cites="fosstodon.org">@fosstodon.org</span> &nbsp;·&nbsp; 0000-0001-2345-6789</p>
 </div>
 </div>
 </div>

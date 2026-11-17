@@ -164,6 +164,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Writing a CV</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./migration.html"> 
+<span class="menu-text">Migrating from R Markdown</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link active" href="./creating-templates.html" aria-current="page"> 
 <span class="menu-text">Creating Templates</span></a>
   </li>  
@@ -205,6 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#conventional-fields" id="toc-conventional-fields" class="nav-link" data-scroll-target="#conventional-fields">Conventional fields</a></li>
   <li><a href="#naming-styles" id="toc-naming-styles" class="nav-link" data-scroll-target="#naming-styles">Naming styles</a></li>
+  <li><a href="#contact-details" id="toc-contact-details" class="nav-link" data-scroll-target="#contact-details">Contact details</a></li>
   <li><a href="#what-authors-can-hand-you" id="toc-what-authors-can-hand-you" class="nav-link" data-scroll-target="#what-authors-can-hand-you">What authors can hand you</a></li>
   <li><a href="#getting-listed-on-this-site" id="toc-getting-listed-on-this-site" class="nav-link" data-scroll-target="#getting-listed-on-this-site">Getting listed on this site</a></li>
   <li><a href="#checklist" id="toc-checklist" class="nav-link" data-scroll-target="#checklist">Checklist</a></li>
@@ -484,6 +489,75 @@ Two columns — a category and its members.
 </dl>
 <p>Introduce a new name only when the shape is genuinely new (<code>publications</code>, <code>timeline</code>), and declare it in <code>vitae.styles</code> so authors get a useful error rather than an unstyled fallback.</p>
 </section>
+<section id="contact-details" class="level2">
+<h2 class="anchored" data-anchor-id="contact-details">Contact details</h2>
+<p>The header of a CV is front matter, not a listing. Authors write it under <code>social</code>, the same way for every template, and the filter replaces it with a list in which every item has one shape. Your pandoc template loops over it; no extra filter is needed.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Example</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>service</code></td>
+<td><code>mastodon</code>, <code>custom</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>is.&lt;service&gt;</code></td>
+<td><code>is.mastodon</code></td>
+<td>true for this item’s service, for <code>$if$</code></td>
+</tr>
+<tr class="odd">
+<td><code>title</code></td>
+<td><code>Mastodon</code></td>
+<td>the service’s name, for alt text</td>
+</tr>
+<tr class="even">
+<td><code>icon</code></td>
+<td><code>mastodon</code></td>
+<td>a <a href="https://fontawesome.com/search?ic=free">Font Awesome 6</a> name</td>
+</tr>
+<tr class="odd">
+<td><code>url</code></td>
+<td><code>https://fosstodon.org/@mcurie</code></td>
+<td>absent when there is nothing to link</td>
+</tr>
+<tr class="even">
+<td><code>label</code></td>
+<td><code>@mcurie@fosstodon.org</code></td>
+<td>the display text</td>
+</tr>
+<tr class="odd">
+<td><code>handle</code></td>
+<td><code>@mcurie@fosstodon.org</code></td>
+<td>recovered from a URL if one was given</td>
+</tr>
+<tr class="even">
+<td><code>given.&lt;field&gt;</code></td>
+<td><code>given.icon</code></td>
+<td>true where the author set <code>url</code>, <code>label</code>, <code>icon</code> or <code>title</code></td>
+</tr>
+</tbody>
+</table>
+<p>Some services add parts, such as <code>user</code> and <code>instance</code> (mastodon) or <code>id</code> and <code>slug</code> (stackoverflow). Values arrive already rendered for the target format, so build links from <code>url</code>, never from <code>handle</code>, and do not escape anything.</p>
+<p>The whole contact line is one loop:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode tex code-with-copy"><code class="sourceCode latex"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ss">$for(social)$</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="ss">$if(social.url)$</span><span class="fu">\href</span>{<span class="ss">$social.url$</span>}{<span class="fu">\faIcon</span>{<span class="ss">$social.icon$</span>}~<span class="ss">$social.label$</span>}<span class="ss">$else$</span><span class="fu">\faIcon</span>{<span class="ss">$social.icon$</span>}~<span class="ss">$social.label$$endif$$sep$</span> | </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ss">$endfor$</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Icons, links and labels are only defaults. Override them with pandoc conditionals, which is also how you pull an item out of the line to place it elsewhere:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode tex code-with-copy"><code class="sourceCode latex"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ss">$for(social)$</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="ss">$if(social.is.address)$</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">\address</span>{<span class="ss">$social.label$</span>}</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ss">$else$</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">\cvsocial</span>{<span class="ss">$if(social.given.icon)$</span><span class="fu">\faIcon</span>{<span class="ss">$social.icon$</span>}<span class="ss">$elseif(social.is.github)$</span><span class="fu">\faSquareGithub</span><span class="ss">$else$</span><span class="fu">\faIcon</span>{<span class="ss">$social.icon$</span>}<span class="ss">$endif$</span>~<span class="ss">$social.label$</span>}</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="ss">$endif$</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="ss">$endfor$</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Check <code>given.&lt;field&gt;</code> before substituting your own default, so an icon or label the author chose still wins. Pandoc’s <code>$sep$</code> cannot know an item was skipped, so a template that moves items out of the loop should insert its own separators.</p>
+</section>
 <section id="what-authors-can-hand-you" class="level2">
 <h2 class="anchored" data-anchor-id="what-authors-can-hand-you">What authors can hand you</h2>
 <p>Worth knowing, since it determines what reaches your handler:</p>
@@ -542,6 +616,7 @@ Two columns — a category and its members.
 <li><label><input type="checkbox"><code>df-print: kable</code> if you expect knitr authors</label></li>
 <li><label><input type="checkbox">handlers loop <code>why</code> rather than printing it</label></li>
 <li><label><input type="checkbox">handlers do no escaping of their own</label></li>
+<li><label><input type="checkbox">contact line loops <code>social</code>, and checks <code>given.&lt;field&gt;</code> before overriding</label></li>
 <li><label><input type="checkbox">rendered from a <strong>clean checkout</strong> — the resource-timing trap above hides itself on any repeat render</label></li>
 </ul>
 

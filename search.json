@@ -49,6 +49,13 @@
     "text": "Naming styles\nName a style for its shape, not for the section it happens to suit.\ndetailed, brief and skills describe layouts. education and employment would describe sections, which is a mistake: the same layout serves education, employment and service, while one CV’s education section may want a different shape from another’s. Sections are the author’s business; shapes are yours.\nReuse these names where the shape matches, so authors can switch designs without editing every div:\n\ndetailed\n\nA multi-line entry with a heading, subheading, date, place, and a bulleted elaboration. The workhorse.\n\nbrief\n\nOne line per entry. Titles, dates, and little else.\n\nskills\n\nTwo columns — a category and its members.\n\n\nIntroduce a new name only when the shape is genuinely new (publications, timeline), and declare it in vitae.styles so authors get a useful error rather than an unstyled fallback."
   },
   {
+    "objectID": "creating-templates.html#contact-details",
+    "href": "creating-templates.html#contact-details",
+    "title": "Creating CV templates",
+    "section": "Contact details",
+    "text": "Contact details\nThe header of a CV is front matter, not a listing. Authors write it under social, the same way for every template, and the filter replaces it with a list in which every item has one shape. Your pandoc template loops over it; no extra filter is needed.\n\n\n\nField\nExample\nNotes\n\n\n\n\nservice\nmastodon, custom\n\n\n\nis.&lt;service&gt;\nis.mastodon\ntrue for this item’s service, for $if$\n\n\ntitle\nMastodon\nthe service’s name, for alt text\n\n\nicon\nmastodon\na Font Awesome 6 name\n\n\nurl\nhttps://fosstodon.org/@mcurie\nabsent when there is nothing to link\n\n\nlabel\n@mcurie@fosstodon.org\nthe display text\n\n\nhandle\n@mcurie@fosstodon.org\nrecovered from a URL if one was given\n\n\ngiven.&lt;field&gt;\ngiven.icon\ntrue where the author set url, label, icon or title\n\n\n\nSome services add parts, such as user and instance (mastodon) or id and slug (stackoverflow). Values arrive already rendered for the target format, so build links from url, never from handle, and do not escape anything.\nThe whole contact line is one loop:\n$for(social)$\n$if(social.url)$\\href{$social.url$}{\\faIcon{$social.icon$}~$social.label$}$else$\\faIcon{$social.icon$}~$social.label$$endif$$sep$ | \n$endfor$\nIcons, links and labels are only defaults. Override them with pandoc conditionals, which is also how you pull an item out of the line to place it elsewhere:\n$for(social)$\n$if(social.is.address)$\n\\address{$social.label$}\n$else$\n\\cvsocial{$if(social.given.icon)$\\faIcon{$social.icon$}$elseif(social.is.github)$\\faSquareGithub$else$\\faIcon{$social.icon$}$endif$~$social.label$}\n$endif$\n$endfor$\nCheck given.&lt;field&gt; before substituting your own default, so an icon or label the author chose still wins. Pandoc’s $sep$ cannot know an item was skipped, so a template that moves items out of the loop should insert its own separators."
+  },
+  {
     "objectID": "creating-templates.html#what-authors-can-hand-you",
     "href": "creating-templates.html#what-authors-can-hand-you",
     "title": "Creating CV templates",
@@ -67,7 +74,7 @@
     "href": "creating-templates.html#checklist",
     "title": "Creating CV templates",
     "section": "Checklist",
-    "text": "Checklist\n\ncurriculum embedded with quarto add --embed, and committed\nfilters: [vitae-entries] in the format\na handler per style, per target format, in entries/\nentries/ not in format-resources\nvitae.styles lists exactly what you ship\ndf-print: kable if you expect knitr authors\nhandlers loop why rather than printing it\nhandlers do no escaping of their own\nrendered from a clean checkout — the resource-timing trap above hides itself on any repeat render"
+    "text": "Checklist\n\ncurriculum embedded with quarto add --embed, and committed\nfilters: [vitae-entries] in the format\na handler per style, per target format, in entries/\nentries/ not in format-resources\nvitae.styles lists exactly what you ship\ndf-print: kable if you expect knitr authors\nhandlers loop why rather than printing it\nhandlers do no escaping of their own\ncontact line loops social, and checks given.&lt;field&gt; before overriding\nrendered from a clean checkout — the resource-timing trap above hides itself on any repeat render"
   },
   {
     "objectID": "using-templates.html",
@@ -126,6 +133,13 @@
     "text": "Several listings at once\nOne .entries div may hold more than one table, and the options apply to all of them. Useful when a section has natural groupings:\n::: {.entries style=\"skills\"}\n| what       | with                             |\n|------------|----------------------------------|\n| Techniques | Fractional crystallisation       |\n\n| what       | with                             |\n|------------|----------------------------------|\n| Languages  | Polish, French, Russian          |\n:::\nThe same applies to a code cell that emits several tables in a loop."
   },
   {
+    "objectID": "using-templates.html#contact-details-and-profiles",
+    "href": "using-templates.html#contact-details-and-profiles",
+    "title": "Writing a CV",
+    "section": "Contact details and profiles",
+    "text": "Contact details and profiles\nYour address, email and online profiles are not a listing; they live in the front matter under social, written as service: handle. Every template reads the same key, so you can switch designs without changing it.\nsocial:\n  - address: \"Paris, France\"\n  - email: marie.curie@example.org\n  - github: mcurie\n  - mastodon: \"@mcurie@fosstodon.org\"\n  - linkedin: {handle: mcurie, label: \"Marie Curie\"}\n  - custom:\n      - icon: flask\n        text: \"[Curie Laboratory](https://curie.fr)\"\nWrite the handle the way the service does, or paste a full profile URL. A map overrides any of handle, url, label, icon or title, and custom covers anything else with an icon and markdown text. Services include email, phone, website, orcid, googlescholar, github, gitlab, linkedin, mastodon, bluesky and more; an unknown name warns with the closest match. Use a list (as above) to keep your order."
+  },
+  {
     "objectID": "using-templates.html#overriding-a-template",
     "href": "using-templates.html#overriding-a-template",
     "title": "Writing a CV",
@@ -147,11 +161,95 @@
     "text": "Troubleshooting\n\nproduced no table, so no entries were rendered\n\nThe engine printed your object verbatim. Use input: csv, or convert it yourself with knitr::kable() or .to_markdown().\n\nunknown style 'x'; this format provides …\n\nA typo, or a style your template does not implement. The listed names are what it supports.\n\ncould not parse fields '…'\n\nfields needs a mapping in braces: {what: Degree}, not what=Degree.\n\nignoring unknown attribute 'x' on .entries div\n\nA misspelled option name. Check it against the table above.\n\n\nEntries render but a column is missing. The template only shows the fields it knows about. Check the column reached it under the right name — an unrenamed Degree stays Degree, and a template looking for what will not find it."
   },
   {
+    "objectID": "migration.html",
+    "href": "migration.html",
+    "title": "Migrating from vitae",
+    "section": "",
+    "text": "NoteWritten for people and agents\n\n\n\nThis guide is written to be followed by a person or by an LLM coding agent. The easiest way to migrate a CV from the vitae R Markdown templates is to open your CV project with an agent and point it here:\n\nMigrate my CV to Quarto vitae by following https://quarto-vitae.github.io/migration.llms.md\n\nThat address is a plain-markdown copy of this page, which also carries instructions meant only for agents: how to check the result against your old CV, and when to stop and ask you.\nThe vitae R package built CVs from R Markdown, with entries produced by detailed_entries(), brief_entries() and bibliography_entries(). Quarto vitae keeps the same idea — a CV is data plus a layout — but the layout is chosen with cell options rather than R functions, so the data no longer has to come from R.\nMost CVs migrate with mechanical changes: the data in your tribble()s stays as it is, and only the code around it changes. This page walks through each change, using the Awesome CV template as the worked example."
+  },
+  {
+    "objectID": "migration.html#at-a-glance",
+    "href": "migration.html#at-a-glance",
+    "title": "Migrating from vitae",
+    "section": "At a glance",
+    "text": "At a glance\n\n\n\n\n\n\n\nvitae (R Markdown)\nQuarto vitae\n\n\n\n\nCV.Rmd\nCV.qmd\n\n\noutput: vitae::awesomecv\nformat: awesomecv-pdf\n\n\nkeep_tex: true under output\nkeep-tex: true at the top level\n\n\nemail:, github:, address: …\na social: list\n\n\ndate: \"`r format(Sys.time(), '%B, %Y')`\"\ndate: today with date-format: \"MMMM, YYYY\"\n\n\nlibrary(vitae)\nnot needed\n\n\ndetailed_entries(what, when, with, where, why)\n#| vitae: cell option with style: detailed\n\n\nbrief_entries(what, when, with)\n#| vitae: cell option with style: brief\n\n\nbibliography_entries(\"refs.bib\")\n::: {.entries style=\"bibliography\" file=\"refs.bib\"}\n\n\nlist column of bullet points\none row per bullet, merged with collapse: why\n\n\nglue(\"\\\\textbf{&lt;x&gt;}\"), .protect = FALSE\nmarkdown (**x**); escaping is automatic\n\n\n\\\\newline inside an entry\n`\\newline`{=latex}\n\n\n\\newpage, \\begin{cvparagraph}\nunchanged — raw LaTeX still works\n\n\nrmarkdown::render(\"CV.Rmd\")\nquarto render CV.qmd"
+  },
+  {
+    "objectID": "migration.html#install-the-template",
+    "href": "migration.html#install-the-template",
+    "title": "Migrating from vitae",
+    "section": "1. Install the template",
+    "text": "1. Install the template\nTemplates are Quarto extensions, installed into your project rather than into R:\nquarto add quarto-vitae/awesome-cv\nThis creates _extensions/quarto-vitae/awesomecv/. Commit it, so the CV renders the same way on any machine.\nvitae copied the template’s class file and fonts next to your document (for Awesome CV, awesome-cv.cls and fonts/). These are no longer used and can be deleted. If your .gitignore names them, anchor the patterns to the project root (/awesome-cv.cls), otherwise they will also hide the copy inside _extensions/.\nRendering still needs a LaTeX installation with xelatex; fonts are fetched on the first render."
+  },
+  {
+    "objectID": "migration.html#rename-the-document",
+    "href": "migration.html#rename-the-document",
+    "title": "Migrating from vitae",
+    "section": "2. Rename the document",
+    "text": "2. Rename the document\nRename CV.Rmd to CV.qmd. Using git mv keeps the file’s history:\ngit mv CV.Rmd CV.qmd\nR code cells keep working: Quarto runs them with knitr, as before."
+  },
+  {
+    "objectID": "migration.html#rewrite-the-front-matter",
+    "href": "migration.html#rewrite-the-front-matter",
+    "title": "Migrating from vitae",
+    "section": "3. Rewrite the front matter",
+    "text": "3. Rewrite the front matter\nBefore:\n---\nname: Marie Curie\ndate: \"`r format(Sys.time(), '%B, %Y')`\"\nposition: Physicist\naddress: Paris, France\nemail: marie.curie@example.org\nwebsite: example.org\ngithub: mcurie\nlinkedin: mcurie\nheadcolor: \"414141\"\noutput:\n  vitae::awesomecv:\n    keep_tex: true\n---\nAfter:\n---\nname: Marie Curie\nposition: Physicist\nsocial:\n  - address: Paris, France\n  - email: marie.curie@example.org\n  - website: example.org\n  - github: mcurie\n  - linkedin: mcurie\nheadcolor: \"414141\"\ndate: today\ndate-format: \"MMMM, YYYY\"\nshow_footer: true\nformat: awesomecv-pdf\n---\nThe changes:\n\noutput becomes format, named &lt;template&gt;-pdf. Format options such as keep-tex move to the top level (or under format:), spelt with hyphens.\nContact details move into social, a list shown in the order written. The keys are the same service names vitae used (email, phone, github, linkedin, orcid, …). social is shared by every Quarto vitae template; see Contact details.\nUse Quarto’s date handling instead of inline R in the YAML.\nCheck which options your template reads. vitae’s templates read a fixed set of fields; Quarto templates document their own. In Awesome CV the footer is now opt-in (show_footer: true), name and surname are separate (a surname is set in bold, so leave it out to keep a single-weight name), and qualifications is not used."
+  },
+  {
+    "objectID": "migration.html#remove-the-vitae-package",
+    "href": "migration.html#remove-the-vitae-package",
+    "title": "Migrating from vitae",
+    "section": "4. Remove the vitae package",
+    "text": "4. Remove the vitae package\nDelete library(vitae) from the setup cell. Keep any other packages you use to build the data, such as the tidyverse."
+  },
+  {
+    "objectID": "migration.html#convert-detailed_entries",
+    "href": "migration.html#convert-detailed_entries",
+    "title": "Migrating from vitae",
+    "section": "5. Convert detailed_entries()",
+    "text": "5. Convert detailed_entries()\nvitae took the columns as arguments in a fixed order: what, when, with, where, why. In Quarto vitae the cell simply prints a data frame, and a vitae cell option says how to lay it out. fields renames your columns to the template’s field names, written new: old.\nBefore:\n```{r}\ntribble(\n  ~ role, ~ company, ~ loc, ~ dates, ~ details,\n  \"Professor\", \"University of Paris\", \"Paris\", \"1906-1934\",\n    list(\"First woman to hold the chair\", \"Directed the Curie Laboratory\"),\n) %&gt;%\n  detailed_entries(role, dates, company, loc, details)\n```\nAfter:\n```{r}\n#| vitae:\n#|   style: detailed\n#|   collapse: why\n#|   fields: {what: role, when: dates, with: company, where: loc, why: details}\ntribble(\n  ~ role, ~ company, ~ loc, ~ dates, ~ details,\n  \"Professor\", \"University of Paris\", \"Paris\", \"1906-1934\",\n    list(\"First woman to hold the chair\", \"Directed the Curie Laboratory\"),\n) %&gt;%\n  mutate(details = map(details, unlist)) %&gt;%\n  unnest_longer(details)\n```\nTurn the positional arguments into fields directly: detailed_entries(A, B, C, D, E) becomes fields: {what: A, when: B, with: C, where: D, why: E}. Leave out any argument you did not pass.\nBullet points. A data frame prints as a table, and a table cell cannot hold a list. Unnest the list column so each bullet is its own row, then set collapse: why: consecutive rows that differ only in why are merged back into one entry. The map(details, unlist) step is needed when some entries give a single string rather than a list(), which unnest_longer() otherwise rejects."
+  },
+  {
+    "objectID": "migration.html#brief-entries",
+    "href": "migration.html#brief-entries",
+    "title": "Migrating from vitae",
+    "section": "6. Convert brief_entries()",
+    "text": "6. Convert brief_entries()\nThe same pattern applies, but check how your template lays out a brief entry, because the field that each argument lands in can change.\nIn vitae’s Awesome CV, brief_entries(what, when, with) set what in regular weight and put with in the right-hand column. In Quarto vitae’s Awesome CV, what is set in bold, with follows it after a comma, and the right-hand column is where. To keep the same layout, map the old with to where:\n```{r}\n#| vitae:\n#|   style: brief\n#|   fields: {what: award, when: year, where: from}\ntribble(\n  ~ award, ~ from, ~ year,\n  \"Nobel Prize in Chemistry\", \"Swedish Academy\", \"1911\",\n)\n```\nThe layout each style uses is in the template’s entries/&lt;style&gt;.tex file, under _extensions/, and in its README."
+  },
+  {
+    "objectID": "migration.html#replace-latex-in-entries-with-markdown",
+    "href": "migration.html#replace-latex-in-entries-with-markdown",
+    "title": "Migrating from vitae",
+    "section": "7. Replace LaTeX in entries with markdown",
+    "text": "7. Replace LaTeX in entries with markdown\nvitae passed entry text to LaTeX, so CVs often built it with glue() and .protect = FALSE. Quarto vitae reads entry text as markdown and escapes LaTeX special characters itself.\n\n\n\n\n\n\n\nvitae\nQuarto vitae\n\n\n\n\n\\\\textbf{x}\n**x**, or the field the template bolds\n\n\n\\\\emph{x}\n*x*\n\n\n\\\\url{https://…}\n&lt;https://…&gt;\n\n\n\\\\&, 5\\\\%\n&, 5%\n\n\n.protect = FALSE\nnot needed\n\n\n\\\\newline\n`\\newline`{=latex}\n\n\n\nManual escapes such as \\\\& are no longer needed. They happen to be harmless, since a backslash before punctuation is also a markdown escape, but other LaTeX commands are not: \\\\textbf{x} prints as the literal text.\nA common vitae idiom bolded a title inside one long string, such as glue(\"\\\\textbf{&lt;title&gt;}: &lt;details&gt;\"). Now that brief bolds what itself, split the string across fields instead:\ntransmute(what = title, with = details, when)\nThe result reads **title**, details rather than **title**: details — the separator is the template’s.\nLine breaks. Where an entry needs a line break inside it, use pandoc’s raw LaTeX syntax. Pad it with spaces, so it is not glued to the next word:\nbr &lt;- \" `\\\\newline`{=latex} \"\ntransmute(what = pkg, with = paste(role, br, details), when = paste0(year, br))\nAdding br to the date, as vitae CVs often did, keeps the date level with the first line of a two-line entry."
+  },
+  {
+    "objectID": "migration.html#convert-bibliography_entries",
+    "href": "migration.html#convert-bibliography_entries",
+    "title": "Migrating from vitae",
+    "section": "8. Convert bibliography_entries()",
+    "text": "8. Convert bibliography_entries()\nBibliographies are a fenced div pointing at the file, with no code cell:\n::: {.entries style=\"bibliography\" file=\"publications.bib\"}\n:::\nThe references are formatted by citeproc rather than biblatex, so the citation style changes: by default they are listed alphabetically, author–date. Set csl: in the front matter to choose a style; for a reverse-chronological list:\ncsl: https://www.zotero.org/styles/apa-cv\nTo filter a bibliography, read it in R and print CSL back out from a cell with style: bibliography; see the curriculum documentation."
+  },
+  {
+    "objectID": "migration.html#keep-raw-latex-as-it-is",
+    "href": "migration.html#keep-raw-latex-as-it-is",
+    "title": "Migrating from vitae",
+    "section": "9. Keep raw LaTeX as it is",
+    "text": "9. Keep raw LaTeX as it is\n\\newpage and the template’s own environments, such as Awesome CV’s cvparagraph, work unchanged:\n\\begin{cvparagraph}\nI have taught applied forecasting for ten years, in the top 5\\% of units.\n\\end{cvparagraph}\nText inside a raw LaTeX environment is still LaTeX, so its escapes stay. To write markdown inside one, open and close it with raw blocks:\n```{=latex}\n\\begin{cvparagraph}\n```\nI have taught applied forecasting for ten years, in the top 5% of units.\n```{=latex}\n\\end{cvparagraph}\n```"
+  },
+  {
+    "objectID": "migration.html#render-and-compare",
+    "href": "migration.html#render-and-compare",
+    "title": "Migrating from vitae",
+    "section": "10. Render and compare",
+    "text": "10. Render and compare\nquarto render CV.qmd\nCompare the result with your old PDF. Expect small differences from the updated template, such as icons, font sizes and the separator in brief entries. Larger differences usually mean a field landed in the wrong place; see step 6."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Quarto Vitae",
     "section": "",
-    "text": "Quarto extensions for writing CVs and résumés.\n\n\nPopulate your CV with entries drawn from a spreadsheet, script, or database.\n\n\nBrowse templates\nWriting a CV"
+    "text": "Quarto extensions for writing CVs and résumés.\n\n\nPopulate your CV with entries drawn from a spreadsheet, script, or database.\n\n\nBrowse templates\nWriting a CV\n\n\nAlready using vitae with R Markdown? Migrate to Quarto vitae →"
   },
   {
     "objectID": "index.html#data-driven-cvs",

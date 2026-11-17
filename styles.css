@@ -69,6 +69,15 @@
   font-size: 0.95rem;
 }
 
+.landing-migrate {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.landing-migrate p {
+  margin: 0;
+}
+
 .hero-link {
   color: var(--bs-body-color, #111111);
   text-decoration: underline;

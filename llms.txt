@@ -1,0 +1,11 @@
+# Quarto Vitae
+
+> Quarto extensions for writing CVs and résumés.
+
+## Pages
+
+- [Templates](https://quarto-vitae.github.io/templates.llms.md)
+- [Creating CV templates](https://quarto-vitae.github.io/creating-templates.llms.md)
+- [Writing a CV](https://quarto-vitae.github.io/using-templates.llms.md)
+- [Migrating from vitae](https://quarto-vitae.github.io/migration.llms.md)
+- [index](https://quarto-vitae.github.io/index.llms.md)

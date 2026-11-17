@@ -1,0 +1,303 @@
+# Migrating from vitae
+
+Moving an R Markdown CV from the vitae R package to Quarto vitae
+
+## Instructions for agents
+
+You have been asked to migrate a CV written with the vitae R package (R Markdown) to a Quarto vitae template. Read this whole page, then work through the checklist at the end. Each step rewrites one construct.
+
+**Before you start**
+
+- Check that the git working tree is clean. If it is not, ask the user before changing anything.
+- Find the old format in the front matter (`output: vitae::<format>`). `vitae::awesomecv` maps to `quarto-vitae/awesome-cv`. For any other format, look for an equivalent at <https://quarto-vitae.github.io/templates.html>; if there is none, stop and ask which template to use.
+- Keep a reference copy of the old PDF **outside the repository**, since rendering overwrites it. Use the committed PDF if there is one, or render the old `.Rmd` first.
+
+**While migrating**
+
+- Change only how the CV is built, never what it says: keep every entry’s wording, dates and order as they are.
+- Leave commented-out entries and sections commented out, unchanged.
+- Rename with `git mv`, so the file keeps its history.
+- Do not commit or push unless the user asked you to.
+
+**Checking the result**
+
+- Render with `quarto render <file>.qmd` and fix every error and `vitae` warning.
+- Convert both PDFs to images (for example `pdftoppm -r 60 -png old.pdf old/p`) and compare them page by page, including the page count and where pages break. `pdftotext -layout` is a quick way to check no entry went missing.
+- Tell the user about each visible difference, and say which kind it is:
+  - **expected, from the updated template**: icons, fonts and sizes, the comma separator and bold `what` in brief entries, and citeproc’s reference style;
+  - **a mistake**: a field in the wrong place, a missing entry, a stray LaTeX command or backslash. Fix these before reporting.
+
+**Stop and ask the user when**
+
+- the CV calls a vitae function or uses an option this page does not cover;
+- the new template has no style matching the one an entry used;
+- the only field mapping available would visibly change an entry’s layout;
+- the CV has a bibliography: ask whether to keep citeproc’s default style or use a CSL file (suggest downloading it into the project, so rendering does not fetch it each time).
+
+The [vitae](https://pkg.mitchelloharawild.com/vitae/) R package built CVs from R Markdown, with entries produced by `detailed_entries()`, `brief_entries()` and `bibliography_entries()`. Quarto vitae keeps the same idea — a CV is data plus a layout — but the layout is chosen with cell options rather than R functions, so the data no longer has to come from R.
+
+Most CVs migrate with mechanical changes: the data in your `tribble()`s stays as it is, and only the code around it changes. This page walks through each change, using the Awesome CV template as the worked example.
+
+## At a glance
+
+| vitae (R Markdown) | Quarto vitae |
+|----|----|
+| `CV.Rmd` | `CV.qmd` |
+| `output: vitae::awesomecv` | `format: awesomecv-pdf` |
+| `keep_tex: true` under `output` | `keep-tex: true` at the top level |
+| `email:`, `github:`, `address:` … | a `social:` list |
+| `` date: "`r format(Sys.time(), '%B, %Y')`" `` | `date: today` with `date-format: "MMMM, YYYY"` |
+| `library(vitae)` | not needed |
+| `detailed_entries(what, when, with, where, why)` | `#| vitae:` cell option with `style: detailed` |
+| `brief_entries(what, when, with)` | `#| vitae:` cell option with `style: brief` |
+| `bibliography_entries("refs.bib")` | `::: {.entries style="bibliography" file="refs.bib"}` |
+| list column of bullet points | one row per bullet, merged with `collapse: why` |
+| `glue("\\textbf{<x>}")`, `.protect = FALSE` | markdown (`**x**`); escaping is automatic |
+| `\\newline` inside an entry | `` `\newline`{=latex} `` |
+| `\newpage`, `\begin{cvparagraph}` | unchanged — raw LaTeX still works |
+| `rmarkdown::render("CV.Rmd")` | `quarto render CV.qmd` |
+
+## 1. Install the template
+
+Templates are Quarto extensions, installed into your project rather than into R:
+
+``` bash
+quarto add quarto-vitae/awesome-cv
+```
+
+This creates `_extensions/quarto-vitae/awesomecv/`. Commit it, so the CV renders the same way on any machine.
+
+vitae copied the template’s class file and fonts next to your document (for Awesome CV, `awesome-cv.cls` and `fonts/`). These are no longer used and can be deleted. If your `.gitignore` names them, anchor the patterns to the project root (`/awesome-cv.cls`), otherwise they will also hide the copy inside `_extensions/`.
+
+Rendering still needs a LaTeX installation with xelatex; fonts are fetched on the first render.
+
+## 2. Rename the document
+
+Rename `CV.Rmd` to `CV.qmd`. Using `git mv` keeps the file’s history:
+
+``` bash
+git mv CV.Rmd CV.qmd
+```
+
+R code cells keep working: Quarto runs them with knitr, as before.
+
+## 3. Rewrite the front matter
+
+Before:
+
+``` yaml
+---
+name: Marie Curie
+date: "`r format(Sys.time(), '%B, %Y')`"
+position: Physicist
+address: Paris, France
+email: marie.curie@example.org
+website: example.org
+github: mcurie
+linkedin: mcurie
+headcolor: "414141"
+output:
+  vitae::awesomecv:
+    keep_tex: true
+---
+```
+
+After:
+
+``` yaml
+---
+name: Marie Curie
+position: Physicist
+social:
+  - address: Paris, France
+  - email: marie.curie@example.org
+  - website: example.org
+  - github: mcurie
+  - linkedin: mcurie
+headcolor: "414141"
+date: today
+date-format: "MMMM, YYYY"
+show_footer: true
+format: awesomecv-pdf
+---
+```
+
+The changes:
+
+- **`output` becomes `format`**, named `<template>-pdf`. Format options such as `keep-tex` move to the top level (or under `format:`), spelt with hyphens.
+- **Contact details move into `social`**, a list shown in the order written. The keys are the same service names vitae used (`email`, `phone`, `github`, `linkedin`, `orcid`, …). `social` is shared by every Quarto vitae template; see [Contact details](using-templates.llms.md#contact-details-and-profiles).
+- **Use Quarto’s date handling** instead of inline R in the YAML.
+- **Check which options your template reads.** vitae’s templates read a fixed set of fields; Quarto templates document their own. In Awesome CV the footer is now opt-in (`show_footer: true`), `name` and `surname` are separate (a `surname` is set in bold, so leave it out to keep a single-weight name), and `qualifications` is not used.
+
+## 4. Remove the vitae package
+
+Delete `library(vitae)` from the setup cell. Keep any other packages you use to build the data, such as the tidyverse.
+
+## 5. Convert `detailed_entries()`
+
+vitae took the columns as arguments in a fixed order: `what`, `when`, `with`, `where`, `why`. In Quarto vitae the cell simply prints a data frame, and a `vitae` cell option says how to lay it out. `fields` renames your columns to the template’s field names, written `new: old`.
+
+Before:
+
+```` markdown
+```{r}
+tribble(
+  ~ role, ~ company, ~ loc, ~ dates, ~ details,
+  "Professor", "University of Paris", "Paris", "1906-1934",
+    list("First woman to hold the chair", "Directed the Curie Laboratory"),
+) %>%
+  detailed_entries(role, dates, company, loc, details)
+```
+````
+
+After:
+
+```` markdown
+```{r}
+#| vitae:
+#|   style: detailed
+#|   collapse: why
+#|   fields: {what: role, when: dates, with: company, where: loc, why: details}
+tribble(
+  ~ role, ~ company, ~ loc, ~ dates, ~ details,
+  "Professor", "University of Paris", "Paris", "1906-1934",
+    list("First woman to hold the chair", "Directed the Curie Laboratory"),
+) %>%
+  mutate(details = map(details, unlist)) %>%
+  unnest_longer(details)
+```
+````
+
+Turn the positional arguments into `fields` directly: `detailed_entries(A, B, C, D, E)` becomes `fields: {what: A, when: B, with: C, where: D, why: E}`. Leave out any argument you did not pass.
+
+**Bullet points.** A data frame prints as a table, and a table cell cannot hold a list. Unnest the list column so each bullet is its own row, then set `collapse: why`: consecutive rows that differ only in `why` are merged back into one entry. The `map(details, unlist)` step is needed when some entries give a single string rather than a `list()`, which `unnest_longer()` otherwise rejects.
+
+## 6. Convert `brief_entries()`
+
+The same pattern applies, but **check how your template lays out a brief entry**, because the field that each argument lands in can change.
+
+In vitae’s Awesome CV, `brief_entries(what, when, with)` set `what` in regular weight and put `with` in the right-hand column. In Quarto vitae’s Awesome CV, `what` is set in **bold**, `with` follows it after a comma, and the right-hand column is `where`. To keep the same layout, map the old `with` to `where`:
+
+```` markdown
+```{r}
+#| vitae:
+#|   style: brief
+#|   fields: {what: award, when: year, where: from}
+tribble(
+  ~ award, ~ from, ~ year,
+  "Nobel Prize in Chemistry", "Swedish Academy", "1911",
+)
+```
+````
+
+The layout each style uses is in the template’s `entries/<style>.tex` file, under `_extensions/`, and in its README.
+
+## 7. Replace LaTeX in entries with markdown
+
+vitae passed entry text to LaTeX, so CVs often built it with `glue()` and `.protect = FALSE`. Quarto vitae reads entry text as **markdown** and escapes LaTeX special characters itself.
+
+| vitae              | Quarto vitae                             |
+|--------------------|------------------------------------------|
+| `\\textbf{x}`      | `**x**`, or the field the template bolds |
+| `\\emph{x}`        | `*x*`                                    |
+| `\\url{https://…}` | `<https://…>`                            |
+| `\\&`, `5\\%`      | `&`, `5%`                                |
+| `.protect = FALSE` | not needed                               |
+| `\\newline`        | `` `\newline`{=latex} ``                 |
+
+Manual escapes such as `\\&` are no longer needed. They happen to be harmless, since a backslash before punctuation is also a markdown escape, but other LaTeX commands are not: `\\textbf{x}` prints as the literal text.
+
+A common vitae idiom bolded a title inside one long string, such as `glue("\\textbf{<title>}: <details>")`. Now that `brief` bolds `what` itself, split the string across fields instead:
+
+``` r
+transmute(what = title, with = details, when)
+```
+
+The result reads `**title**, details` rather than `**title**: details` — the separator is the template’s.
+
+**Line breaks.** Where an entry needs a line break inside it, use pandoc’s raw LaTeX syntax. Pad it with spaces, so it is not glued to the next word:
+
+``` r
+br <- " `\\newline`{=latex} "
+transmute(what = pkg, with = paste(role, br, details), when = paste0(year, br))
+```
+
+Adding `br` to the date, as vitae CVs often did, keeps the date level with the first line of a two-line entry.
+
+## 8. Convert `bibliography_entries()`
+
+Bibliographies are a fenced div pointing at the file, with no code cell:
+
+``` markdown
+::: {.entries style="bibliography" file="publications.bib"}
+:::
+```
+
+The references are formatted by citeproc rather than biblatex, so the citation style changes: by default they are listed alphabetically, author–date. Set `csl:` in the front matter to choose a style; for a reverse-chronological list:
+
+``` yaml
+csl: https://www.zotero.org/styles/apa-cv
+```
+
+To filter a bibliography, read it in R and print CSL back out from a cell with `style: bibliography`; see the [curriculum documentation](https://github.com/quarto-vitae/curriculum#bibliographies).
+
+## 9. Keep raw LaTeX as it is
+
+`\newpage` and the template’s own environments, such as Awesome CV’s `cvparagraph`, work unchanged:
+
+``` latex
+\begin{cvparagraph}
+I have taught applied forecasting for ten years, in the top 5\% of units.
+\end{cvparagraph}
+```
+
+Text inside a raw LaTeX environment is still LaTeX, so its escapes stay. To write markdown inside one, open and close it with raw blocks:
+
+```` markdown
+```{=latex}
+\begin{cvparagraph}
+```
+I have taught applied forecasting for ten years, in the top 5% of units.
+```{=latex}
+\end{cvparagraph}
+```
+````
+
+## 10. Render and compare
+
+``` bash
+quarto render CV.qmd
+```
+
+Compare the result with your old PDF. Expect small differences from the updated template, such as icons, font sizes and the separator in brief entries. Larger differences usually mean a field landed in the wrong place; see [step 6](#brief-entries).
+
+## Checklist
+
+Work through these in order, ticking each off as it is done.
+
+- [ ] Install the template with `quarto add quarto-vitae/<template>`. Delete the old copied class file and `fonts/`, and anchor any `.gitignore` patterns for them with a leading `/`.
+- [ ] Rename the document with `git mv CV.Rmd CV.qmd`.
+- [ ] Rewrite the front matter: `output:` → `format: <template>-pdf`; contact keys → a `social:` list; inline-R `date` → `date: today` + `date-format`; add options the new template needs (Awesome CV: `show_footer: true`); drop unused ones.
+- [ ] Remove `library(vitae)`.
+- [ ] Convert each `detailed_entries(A, B, C, D, E)` to a printed data frame with `#| vitae: {style: detailed, fields: {what: A, when: B, with: C, where: D, why: E}}`. If `why` is a list column, add `collapse: why` and unnest it (`mutate(x = map(x, unlist)) %>% unnest_longer(x)`).
+- [ ] Convert each `brief_entries(A, B, C)` to `style: brief`, mapping each argument to the field the *new* template shows where the old one showed it (Awesome CV: `{what: A, when: B, where: C}`).
+- [ ] Replace `glue()` LaTeX with markdown; drop `.protect = FALSE` and manual escapes (`\\&`, `\\%`, optional but tidier); `\\newline` → `` " `\\newline`{=latex} " ``.
+- [ ] Replace `bibliography_entries("f.bib")` with `::: {.entries style="bibliography" file="f.bib"}` `:::`, and ask the user about a `csl:` style.
+- [ ] Leave `\newpage` and raw LaTeX environments alone.
+- [ ] Render with `quarto render`, then compare each page with the old PDF.
+
+## Troubleshooting
+
+`Can't combine <list> and <character>` from `unnest_longer()`  
+Some entries give one string and others a `list()`. Normalise them first with `mutate(details = map(details, unlist))`.
+
+`Undefined control sequence` mentioning `\newlineSomething`  
+A raw `\newline` was pasted directly against the next word. Put spaces around it.
+
+Literal LaTeX such as `\textbf{…}` printed in the CV  
+Entry text is markdown now. Replace LaTeX commands with markdown, or wrap them as `` `\cmd`{=latex} ``.
+
+Entries render but a column is missing or in the wrong place  
+The field names differ between templates. Check the template’s `entries/<style>.tex` for the fields it uses, and adjust `fields`.
+
+See also the general troubleshooting for writing a CV, at <https://quarto-vitae.github.io/using-templates.llms.md>.
