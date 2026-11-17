@@ -26,7 +26,7 @@ CV, and when to stop and ask you.
 
 You have been asked to migrate a CV written with the vitae R package (R
 Markdown) to a Quarto vitae template. Read this whole page, then work through
-the [checklist](#checklist) at the end. Each step rewrites one construct.
+the checklist at the end. Each step rewrites one construct.
 
 **Before you start**
 
@@ -363,30 +363,37 @@ template, such as icons, font sizes and the separator in brief entries. Larger
 differences usually mean a field landed in the wrong place; see
 [step 6](#brief-entries).
 
-## Checklist {#checklist}
+::: {.content-visible when-format="llms-txt"}
+## Checklist {.unlisted}
 
-1. `quarto add quarto-vitae/<template>`; delete the old copied class file and
-   `fonts/`; anchor any `.gitignore` patterns for them with a leading `/`.
-2. `git mv CV.Rmd CV.qmd`.
-3. Front matter: `output:` → `format: <template>-pdf`; contact keys → `social:`
-   list; inline-R `date` → `date: today` + `date-format`; add options the new
-   template needs (Awesome CV: `show_footer: true`); drop unused ones.
-4. Remove `library(vitae)`.
-5. Each `detailed_entries(A, B, C, D, E)` → print the data frame, with
-   `#| vitae: {style: detailed, fields: {what: A, when: B, with: C, where: D, why: E}}`.
-   If `why` is a list column, add `collapse: why` and unnest it
-   (`mutate(x = map(x, unlist)) %>% unnest_longer(x)`).
-6. Each `brief_entries(A, B, C)` → `style: brief`, mapping each argument to the
-   field the *new* template shows where the old one showed it (Awesome CV:
-   `{what: A, when: B, where: C}`).
-7. Replace `glue()` LaTeX with markdown; drop `.protect = FALSE` and manual
-   escapes (`\\&`, `\\%`, optional but tidier); `\\newline` → `` " `\\newline`{=latex} " ``.
-8. `bibliography_entries("f.bib")` → `::: {.entries style="bibliography" file="f.bib"}`
-   `:::`, and choose a `csl:` if order or style matters.
-9. Leave `\newpage` and raw LaTeX environments alone.
-10. `quarto render`, then compare each page with the old PDF.
+Work through these in order, ticking each off as it is done.
 
-## Troubleshooting
+- [ ] Install the template with `quarto add quarto-vitae/<template>`. Delete the
+  old copied class file and `fonts/`, and anchor any `.gitignore` patterns for
+  them with a leading `/`.
+- [ ] Rename the document with `git mv CV.Rmd CV.qmd`.
+- [ ] Rewrite the front matter: `output:` → `format: <template>-pdf`; contact
+  keys → a `social:` list; inline-R `date` → `date: today` + `date-format`; add
+  options the new template needs (Awesome CV: `show_footer: true`); drop unused
+  ones.
+- [ ] Remove `library(vitae)`.
+- [ ] Convert each `detailed_entries(A, B, C, D, E)` to a printed data frame
+  with `#| vitae: {style: detailed, fields: {what: A, when: B, with: C, where: D, why: E}}`.
+  If `why` is a list column, add `collapse: why` and unnest it
+  (`mutate(x = map(x, unlist)) %>% unnest_longer(x)`).
+- [ ] Convert each `brief_entries(A, B, C)` to `style: brief`, mapping each
+  argument to the field the *new* template shows where the old one showed it
+  (Awesome CV: `{what: A, when: B, where: C}`).
+- [ ] Replace `glue()` LaTeX with markdown; drop `.protect = FALSE` and manual
+  escapes (`\\&`, `\\%`, optional but tidier); `\\newline` →
+  `` " `\\newline`{=latex} " ``.
+- [ ] Replace `bibliography_entries("f.bib")` with
+  `::: {.entries style="bibliography" file="f.bib"}` `:::`, and ask the user
+  about a `csl:` style.
+- [ ] Leave `\newpage` and raw LaTeX environments alone.
+- [ ] Render with `quarto render`, then compare each page with the old PDF.
+
+## Troubleshooting {.unlisted}
 
 `Can't combine <list> and <character>` from `unnest_longer()`
 : Some entries give one string and others a `list()`. Normalise them first with
@@ -404,5 +411,6 @@ Entries render but a column is missing or in the wrong place
 : The field names differ between templates. Check the template's
   `entries/<style>.tex` for the fields it uses, and adjust `fields`.
 
-See also the general [troubleshooting](using-templates.qmd#troubleshooting) for
-writing a CV.
+See also the general troubleshooting for writing a CV, at
+<https://quarto-vitae.github.io/using-templates.llms.md>.
+:::
