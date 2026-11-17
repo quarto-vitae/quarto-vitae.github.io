@@ -4,6 +4,7 @@ subtitle: "Moving an R Markdown CV from the vitae R package to Quarto vitae"
 engine: markdown
 ---
 
+::: {.content-hidden when-format="llms-txt"}
 ::: {.callout-note}
 ## Written for people and agents
 
@@ -12,11 +13,63 @@ easiest way to migrate a CV from the vitae R Markdown templates is to open your
 CV project with an agent and point it here:
 
 > Migrate my CV to Quarto vitae by following
-> <https://quarto-vitae.github.io/migration.html>
+> <https://quarto-vitae.github.io/migration.llms.md>
 
-Agents should work through the [checklist](#checklist) at the end of this page.
-Each step rewrites one construct and never changes the CV's content. Render after
-migrating and compare the PDF page by page with the old one.
+That address is a plain-markdown copy of this page, which also carries
+instructions meant only for agents: how to check the result against your old
+CV, and when to stop and ask you.
+:::
+:::
+
+::: {.content-visible when-format="llms-txt"}
+## Instructions for agents {.unlisted}
+
+You have been asked to migrate a CV written with the vitae R package (R
+Markdown) to a Quarto vitae template. Read this whole page, then work through
+the [checklist](#checklist) at the end. Each step rewrites one construct.
+
+**Before you start**
+
+- Check that the git working tree is clean. If it is not, ask the user before
+  changing anything.
+- Find the old format in the front matter (`output: vitae::<format>`).
+  `vitae::awesomecv` maps to `quarto-vitae/awesome-cv`. For any other format,
+  look for an equivalent at <https://quarto-vitae.github.io/templates.html>; if
+  there is none, stop and ask which template to use.
+- Keep a reference copy of the old PDF **outside the repository**, since
+  rendering overwrites it. Use the committed PDF if there is one, or render the
+  old `.Rmd` first.
+
+**While migrating**
+
+- Change only how the CV is built, never what it says: keep every entry's
+  wording, dates and order as they are.
+- Leave commented-out entries and sections commented out, unchanged.
+- Rename with `git mv`, so the file keeps its history.
+- Do not commit or push unless the user asked you to.
+
+**Checking the result**
+
+- Render with `quarto render <file>.qmd` and fix every error and `vitae`
+  warning.
+- Convert both PDFs to images (for example `pdftoppm -r 60 -png old.pdf old/p`)
+  and compare them page by page, including the page count and where pages
+  break. `pdftotext -layout` is a quick way to check no entry went missing.
+- Tell the user about each visible difference, and say which kind it is:
+  - **expected, from the updated template**: icons, fonts and sizes, the
+    comma separator and bold `what` in brief entries, and citeproc's reference
+    style;
+  - **a mistake**: a field in the wrong place, a missing entry, a stray LaTeX
+    command or backslash. Fix these before reporting.
+
+**Stop and ask the user when**
+
+- the CV calls a vitae function or uses an option this page does not cover;
+- the new template has no style matching the one an entry used;
+- the only field mapping available would visibly change an entry's layout;
+- the CV has a bibliography: ask whether to keep citeproc's default style or
+  use a CSL file (suggest downloading it into the project, so rendering does
+  not fetch it each time).
 :::
 
 The [vitae](https://pkg.mitchelloharawild.com/vitae/) R package built CVs from
