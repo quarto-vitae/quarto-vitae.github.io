@@ -124,19 +124,21 @@ echo "generate-templates.sh: writing $OUT ($n templates)" >&2
       nimg=$(jq -r '.t.images | length' <<<"$slide")
       image=$(jq -r '.image // empty' <<<"$slide")
 
-      style=""
+      # Templates with a single preview have no style name, so use a
+      # generic label.
+      style="CV"
       if [[ "$nimg" -gt 1 && -n "$image" ]]; then
         style=$(basename "$image"); style="${style%.*}"
         style=$(printf '%s' "$style" | sed -E 's/[-_]+/ /g' | awk '{print (length($0)<=2) ? toupper($0) : toupper(substr($0,1,1)) substr($0,2)}')
       fi
 
       echo '<figure class="carousel-slide">'
-      [[ -n "$image" ]] && echo "<a href=\"${url}\"><img class=\"template-preview\" src=\"${image}\" alt=\"${title}${style:+ ($style)} preview\" loading=\"lazy\"></a>"
+      [[ -n "$image" ]] && echo "<a href=\"${url}\"><img class=\"template-preview\" src=\"${image}\" alt=\"${title}$([[ "$nimg" -gt 1 ]] && echo " ($style)") preview\" loading=\"lazy\"></a>"
       echo '<figcaption>'
       echo -n "<h4><a href=\"${url}\">${title}</a>"
       [[ "$official" != "true" ]] && echo -n ' <span class="template-badge">community</span>'
       echo '</h4>'
-      [[ -n "$style" ]] && echo "<p class=\"carousel-style\">${style}</p>"
+      echo "<p class=\"carousel-style\">${style}</p>"
       [[ -n "$desc" ]] && echo "<p>${desc}</p>"
       echo '</figcaption>'
       echo '</figure>'
@@ -159,6 +161,40 @@ document.querySelectorAll("[data-template-carousel]").forEach(function (c) {
   }
   c.querySelector(".carousel-prev").addEventListener("click", function () { step(-1); });
   c.querySelector(".carousel-next").addEventListener("click", function () { step(1); });
+
+  // Slow continuous auto-scroll on the landing page only. Pauses while the
+  // pointer, focus or a touch is on the carousel, and is skipped entirely
+  // for people who prefer reduced motion.
+  if (!c.closest(".landing-templates")) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var SPEED = 30; // pixels per second
+  var paused = false, pos = 0, last = null;
+  function setPaused(p) {
+    paused = p;
+    track.classList.toggle("is-auto", !p);
+    last = null;
+    if (!p) pos = track.scrollLeft;
+  }
+  function tick(t) {
+    if (!paused) {
+      if (last !== null) {
+        pos += SPEED * (t - last) / 1000;
+        var max = track.scrollWidth - track.clientWidth;
+        if (pos >= max) pos = 0;
+        track.scrollLeft = pos;
+      }
+      last = t;
+    }
+    requestAnimationFrame(tick);
+  }
+  ["mouseenter", "focusin", "touchstart"].forEach(function (e) {
+    c.addEventListener(e, function () { setPaused(true); }, { passive: true });
+  });
+  ["mouseleave", "focusout", "touchend"].forEach(function (e) {
+    c.addEventListener(e, function () { setPaused(false); }, { passive: true });
+  });
+  setPaused(false);
+  requestAnimationFrame(tick);
 });
 </script>
 JS
