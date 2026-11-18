@@ -483,3 +483,19 @@
   text-align: center;
   vertical-align: 0.1em;
 }
+
+.templates-count {
+  text-align: center;
+  margin: 0 auto 1.5rem;
+  color: var(--bs-secondary-color, #6c757d);
+}
+
+.templates-count p {
+  margin: 0;
+}
+
+.templates-count-number {
+  font-weight: 700;
+  font-size: 1.25em;
+  color: var(--bs-body-color);
+}

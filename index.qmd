@@ -185,6 +185,10 @@ social:
 ## Pick a design and start writing
 :::
 
+::: {.templates-count}
+{{< include _templates-count.qmd >}}
+:::
+
 {{< include _templates-gallery.qmd >}}
 
 ::: {.landing-templates-footer}
