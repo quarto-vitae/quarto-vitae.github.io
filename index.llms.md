@@ -224,6 +224,62 @@ CV
 
 A Quarto vitae template for the luxsleek CV design
 
+[![moderncv (Banking) preview](https://raw.githubusercontent.com/quarto-vitae/moderncv/main/preview/banking.png)](https://github.com/quarto-vitae/moderncv)
+
+#### [moderncv](https://github.com/quarto-vitae/moderncv)
+
+Banking
+
+A Quarto vitae template for the moderncv LaTeX class
+
+[![moderncv (Casual) preview](https://raw.githubusercontent.com/quarto-vitae/moderncv/main/preview/casual.png)](https://github.com/quarto-vitae/moderncv)
+
+#### [moderncv](https://github.com/quarto-vitae/moderncv)
+
+Casual
+
+A Quarto vitae template for the moderncv LaTeX class
+
+[![moderncv (Classic) preview](https://raw.githubusercontent.com/quarto-vitae/moderncv/main/preview/classic.png)](https://github.com/quarto-vitae/moderncv)
+
+#### [moderncv](https://github.com/quarto-vitae/moderncv)
+
+Classic
+
+A Quarto vitae template for the moderncv LaTeX class
+
+[![moderncv (Contemporary) preview](https://raw.githubusercontent.com/quarto-vitae/moderncv/main/preview/contemporary.png)](https://github.com/quarto-vitae/moderncv)
+
+#### [moderncv](https://github.com/quarto-vitae/moderncv)
+
+Contemporary
+
+A Quarto vitae template for the moderncv LaTeX class
+
+[![moderncv (Coverletter) preview](https://raw.githubusercontent.com/quarto-vitae/moderncv/main/preview/coverletter.png)](https://github.com/quarto-vitae/moderncv)
+
+#### [moderncv](https://github.com/quarto-vitae/moderncv)
+
+Coverletter
+
+A Quarto vitae template for the moderncv LaTeX class
+
+[![moderncv (Fancy) preview](https://raw.githubusercontent.com/quarto-vitae/moderncv/main/preview/fancy.png)](https://github.com/quarto-vitae/moderncv)
+
+#### [moderncv](https://github.com/quarto-vitae/moderncv)
+
+Fancy
+
+A Quarto vitae template for the moderncv LaTeX class
+
+[![moderncv (Oldstyle) preview](https://raw.githubusercontent.com/quarto-vitae/moderncv/main/preview/oldstyle.png)](https://github.com/quarto-vitae/moderncv)
+
+#### [moderncv](https://github.com/quarto-vitae/moderncv)
+
+Oldstyle
+
+A Quarto vitae template for the moderncv LaTeX class
+
 [![Résumé preview](https://raw.githubusercontent.com/quarto-vitae/billryan/main/preview/cv.png)](https://github.com/quarto-vitae/billryan)
 
 #### [Résumé](https://github.com/quarto-vitae/billryan)
