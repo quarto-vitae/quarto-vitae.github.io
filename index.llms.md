@@ -118,7 +118,7 @@ Templates
 
 ## Pick a design and start writing
 
-22 officially supported CV templates
+22 officially supported CV templates, and counting…
 
 ‹
 
