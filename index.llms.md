@@ -118,6 +118,8 @@ Templates
 
 ## Pick a design and start writing
 
+22 officially supported CV templates
+
 ‹
 
 [![AltaCV preview](https://raw.githubusercontent.com/quarto-vitae/altacv/main/preview/altacv.png)](https://github.com/quarto-vitae/altacv)
