@@ -43,6 +43,7 @@ format:
       - cosmo
       - brand
     css: styles.css
+    include-in-header: _plausible.html
     toc: true
 
 filters:
