@@ -30,6 +30,14 @@ CV
 
 A Quarto vitae template for Awesome-CV
 
+[![billryan résumé preview](https://raw.githubusercontent.com/quarto-vitae/billryan/main/preview/cv.png)](https://github.com/quarto-vitae/billryan)
+
+#### [billryan résumé](https://github.com/quarto-vitae/billryan)
+
+CV
+
+A Quarto vitae template for billryan's CV design
+
 [![Hyndman CV preview](https://raw.githubusercontent.com/quarto-vitae/hyndman/main/preview/hyndmancv.png)](https://github.com/quarto-vitae/hyndman)
 
 #### [Hyndman CV](https://github.com/quarto-vitae/hyndman)
@@ -165,14 +173,6 @@ A Quarto vitae template for the moderncv LaTeX class
 Oldstyle
 
 A Quarto vitae template for the moderncv LaTeX class
-
-[![Résumé preview](https://raw.githubusercontent.com/quarto-vitae/billryan/main/preview/cv.png)](https://github.com/quarto-vitae/billryan)
-
-#### [Résumé](https://github.com/quarto-vitae/billryan)
-
-CV
-
-A Quarto vitae template for billryan's CV design
 
 [![Sourabh's Resume preview](https://raw.githubusercontent.com/quarto-vitae/sb2nov/main/preview/cv.png)](https://github.com/quarto-vitae/sb2nov)
 
